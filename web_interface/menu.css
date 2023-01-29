@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(155, 106, 7);
+    background-color: rgb(131, 89, 6);
 }
 
 body h1{
@@ -10,6 +10,12 @@ body h1{
 body p{
     font-family: Helvetica;
     color: black;
+}
+
+body a{
+    font-family: Helvetica;
+    color: black;
+    text-decoration: underline;
 }
 
 
@@ -30,8 +36,25 @@ body p{
 .titlecontainer{
     width:50%;
     height: 100%;
-    background-color: rgb(243, 210, 144);
+    background: linear-gradient(rgb(243, 210, 144), rgb(255, 128, 0));
     border-radius: 4px;
     text-align: center;
     display: block;
+}
+
+.errormsg{
+    width:40%;
+    height: 50px;
+    opacity:0;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.errormsg p{
+    font-size: 13px;
+}
+
+.errormsg a{
+    font-size: 13px;
 }
