@@ -1,0 +1,37 @@
+body{
+    background-color: rgb(155, 106, 7);
+}
+
+body h1{
+    font-family: Helvetica;
+    color: black;
+}
+
+body p{
+    font-family: Helvetica;
+    color: black;
+}
+
+
+.maincontainer{
+    width:100%;
+    height: 500px;
+    display:flex;
+}
+
+.hspace{
+    height:100%;
+}
+
+.vspace{
+    width:100%;
+}
+
+.titlecontainer{
+    width:50%;
+    height: 100%;
+    background-color: rgb(243, 210, 144);
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+}
