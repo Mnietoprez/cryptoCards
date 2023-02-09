@@ -1,10 +1,13 @@
 body{
-    background-color: rgb(131, 89, 6);
+    background-color:rgb(53, 22, 9);
+    background-image: url(../images/resized.jpg);
+    background-blend-mode: multiply;
 }
 
 body h1{
     font-family: Helvetica;
-    color: black;
+    color: rgb(195, 168, 152);
+    font-size: 80px;
 }
 
 body p{
@@ -17,7 +20,6 @@ body a{
     color: black;
     text-decoration: underline;
 }
-
 
 .maincontainer{
     width:100%;
@@ -34,27 +36,43 @@ body a{
 }
 
 .titlecontainer{
-    width:50%;
+    width:90%;
     height: 100%;
-    background: linear-gradient(rgb(243, 210, 144), rgb(255, 128, 0));
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 4px;
     text-align: center;
     display: block;
 }
 
 .errormsg{
-    width:40%;
+    width:100%;
     height: 50px;
     opacity:0;
-    background-color: rgb(255, 255, 255);
     border-radius: 5px;
     text-align: center;
 }
 
 .errormsg p{
     font-size: 13px;
+    color:white;
 }
 
 .errormsg a{
     font-size: 13px;
+    color:white;
+}
+
+.titlecontainer button{
+    background-color: rgb(195, 168, 152);
+    font-size: 20px;
+    font-family: arial;
+    border-radius: 10px;
+    width:20%;
+    height:40px;
+}
+
+.titlecontainer button:hover {
+    transition: 0.15s;
+    transform:scale(1.1, 1.2);
+    background-color:rgb(122, 107, 98);
 }

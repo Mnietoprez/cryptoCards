@@ -208,3 +208,7 @@ body{
     width:100%;
 }
 
+.section:hover {
+    transition: 0.15s;
+    background-color:rgb(50, 34, 15);
+}
