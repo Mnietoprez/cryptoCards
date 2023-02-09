@@ -15,7 +15,7 @@ async function load() {
 
 function launchApp() {
     if (linked){
-        window.open("collection/collection.html", "_self");
+        window.open("sections/collection/collection.html", "_self");
     } else {
         showError();
     }
