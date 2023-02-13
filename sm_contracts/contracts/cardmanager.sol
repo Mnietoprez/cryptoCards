@@ -6,16 +6,18 @@ import "./rustToken.sol";
 
 contract CardManager is CardNFT, Rust{
 
-    constructor() ERC721("AmazingCryptoCards" , "ACC"){
-        owner = payable(msg.sender);
+    address public tokenAddress;
+
+    constructor() ERC721("AmazingCryptoCards" , "ACC", _tokenAddress){
+        owner = msg.sender;
+        tokenAddress = _tokenAddress;
     }
 
-    modifier onlyOwner(uint _tokenId) {
+    modifier onlyTokenOwner(uint _tokenId) {
         //checks that a public function that involves a specific card id is called by the owner of that card
         require(ownerOf(_tokenId) == msg.sender);
         _;
     }
-
 
     function cardsOfAdress(address _of) public view returns(uint[] memory){
         uint[] memory giveBack = new uint[](balanceOf(_of));
@@ -30,7 +32,7 @@ contract CardManager is CardNFT, Rust{
     }
 
 
-    function upgradeStat(uint _stat, uint _id) public onlyOwner(_id){
+    function upgradeStat(uint _stat, uint _id) public onlyTokenOwner(_id){
         require (rustBalanceOf(msg.sender) >= 100 + 3^cards[_id].upgradeCost - 1, "You don't have enough rust to perform this action");
         require (cards[_id].readyToUpgrade == true, "Your card is not ready to be upgraded. Go play some matches before.");
         require (_stat>=0 && _stat <4, "Stat upgraded not valid");
@@ -50,8 +52,8 @@ contract CardManager is CardNFT, Rust{
         cards[_id].upgradeCost = cards[_id].upgradeCost + 1; 
     }
 
-    function changeName(string memory _name, uint _id) public onlyOwner(_id){
-        require(bytes(_name).length < 16, "New name can not be longer than 15 characters");
+    function changeName(string memory _name, uint _id) public onlyTokenOwner(_id){
+        require(bytes(_name).length < 21, "New name can not be longer than 20 characters");
         cards[_id].name = _name;
     }
   

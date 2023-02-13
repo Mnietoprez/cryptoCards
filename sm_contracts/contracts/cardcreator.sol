@@ -1,12 +1,10 @@
 pragma solidity ^0.8.0;
 
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC721/ERC721.sol";
-
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 abstract contract CardNFT is ERC721 {
 
-    address tokenAddress;
-    address payable owner;
+    CryptoCardToken token = ContratoImportado(tokenAddress);
 
     modifier onlyContractOwner {
         require (msg.sender == owner);
@@ -14,11 +12,7 @@ abstract contract CardNFT is ERC721 {
     }
 
     function changeContractOwner(address _newOwner) public onlyContractOwner(){
-        owner = payable(_newOwner);
-    }
-
-    function retrieveFunds() public payable onlyContractOwner(){
-        owner.transfer(address(this).balance); 
+        owner = _newOwner;
     }
 
     function mint(address to_) private {
@@ -60,10 +54,11 @@ abstract contract CardNFT is ERC721 {
         }
     }
 
-    function openSmall () external payable{
+    function openSmall () external {
         //the small pack loops the creation of the randnums a maximum of 10 times, where if the number is greater than 3000
         //another random number is picked, in order to reduce the probabilities of getting a good stat
-        require(msg.value == 8000000000000000000, "8 Matic is required to execute this function.");
+        require(balanceOf[msg.sender] >= 8000000000, "8 Matic is required to execute this function.");
+        token.transfer(owner, 8000000000);  
 
         uint16[4] memory rands;
        
@@ -88,7 +83,8 @@ abstract contract CardNFT is ERC721 {
     function openMedium () external payable{
          //the medium pack loops the creation of the randnums a maximum of 7 times, where if the number isnt between 3000 and 6500
         //another random number is picked, in order to moderate the probabilities of getting a good stat
-        require(msg.value == 15000000000000000000, "15 Matic is required to execute this function.");
+        require(balanceOf[msg.sender] >= 15000000000, "15 Matic is required to execute this function.");
+        token.transfer(owner, 15000000000);  
 
         uint16[4] memory rands;
        
@@ -111,7 +107,8 @@ abstract contract CardNFT is ERC721 {
 
     function openLarge () external payable{
         // no limits to your luck (minimum of 4000 on each stat)!!!
-        require(msg.value == 25000000000000000000, "25 Matic is required to execute this function.");
+        require(balanceOf[msg.sender] >= 25000000000, "25 Matic is required to execute this function.");
+        token.transfer(owner, 25000000000);  
 
         uint16[4] memory rands;
        
