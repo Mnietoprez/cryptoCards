@@ -78,7 +78,7 @@
                                     <div class="thecardimage">
                                         <div class="hspace" style="width:5%;"></div>
                                         <div class="insidethecardimage">
-
+                                            <img src="" id="cardimage">
                                         </div>
                                         <div class="hspace" style="width:5%;"></div>
                                     </div>
@@ -153,12 +153,21 @@
                                         <div class="hspace" style="width:5%;"></div>
                                     </div>
                                 </div>
-                                <p>Id:</p>
+                                <p id="displayId">Id:</p>
                             </div>
                             <div class="hspace" style="width:10%;"></div>
                         </div>
                         <div class="rhalfmanager">
                             <h1>Options</h1>
+                            <br>
+                            <br>
+                            <br>
+                            <p style="background-color: rgba(0,0,0,0.2);">Change Card Name</p>
+                            <input type="text" id="newname" placeholder="Don't write more than 20 characters">
+                            <br>
+                            <br>
+                            <button onClick=changeName()>Submit</button>
+                            <p id="changenamestatus"></p>
                         </div>
                     </div>
                 </div>

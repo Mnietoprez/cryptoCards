@@ -1,26 +1,42 @@
 //0x29945D9677959984B295502F4101F974DE2807c3 token
 var contractAddress = "0xa029A03744B3B005CDB6Ef55a6592277A05139CD";
-
+var activeid;
+var account;
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
-    const account = await getCurrentAccount();
+    account = await getCurrentAccount();
     ids = await window.contract.methods.cardsOfAdress(account).call();
 
     let parent = document.getElementById("cardcontainer");
-    
     for (let i = 0; i < ids.length; i++) {
         var div = document.createElement('div');
+        var rawData = await window.contract.methods.cards(ids[i]).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+
         div.style.width = "100%";
         div.style.height= "30px";
-        div.style.borderRadius= "5px";
-        div.style.background= "rgba(0, 0, 0, 0.2)";
+        div.style.borderRadius= "10px";
+
+        var totalpower = dataAsArray[4];
+        if(totalpower<=2500){
+            div.style.backgroundColor = "rgba(186, 186, 186, 0.1)";
+        } else {
+            if(totalpower<=5000){
+                div.style.backgroundColor = "rgba(26, 172, 0, 0.1)";
+            } else {
+                if(totalpower<=7500){
+                    div.style.backgroundColor = "rgba(1, 73, 216, 0.1)";
+                } else{
+                    div.style.backgroundColor = "rgba(152, 0, 172, 0.1)";
+                }
+            }
+        }
         parent.appendChild(div);
 
         const id = document.createElement("p");
 
-        const rawData = await window.contract.methods.cards(0).call();
-        const dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        
 
         const textNode = document.createTextNode(`Id: ${ids[i]}, Name: ${dataAsArray[23]}`);
         id.appendChild(textNode);
@@ -32,6 +48,7 @@ window.onload = async function(){
 
         id.onclick = function() { selectCard(ids[i]); };
     }
+    selectCard(ids[0]);
 }
 
 async function loadWeb3() {
@@ -44,6 +61,96 @@ async function loadWeb3() {
 async function getCurrentAccount() {
     const accounts = await window.web3.eth.getAccounts();
     return accounts[0];
+}
+
+var images = {
+    0: "../../images/commonmagma.jpg",
+    10: "../../images/commonice.jpg",
+    20: "../../images/commonpoison.jpg",
+    30: "../../images/commonelectric.jpg",
+    100: "../../images/uncommonmagma.jpg",
+    110: "../../images/uncommonice.jpg",
+    120: "../../images/uncommonpoison.jpg",
+    130: "../../images/uncommonelectric.jpg",
+    200: "../../images/raremagma.jpg",
+    210: "../../images/rareice.jpg",
+    220: "../../images/rarepoison.jpg",
+    230: "../../images/rareelectric.jpg",
+    300: "../../images/legendarymagma.jpg",
+    310: "../../images/legendaryice.jpg",
+    320: "../../images/legendarypoison.jpg",
+    330: "../../images/legendaryelectric.jpg",
+}
+
+
+async function selectCard(id){
+    const rawData = await window.contract.methods.cards(id).call();
+    const dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+    document.getElementById("cardtotalpowerval").innerHTML = dataAsArray[4];
+
+    activeid = id;
+
+    var totalpower = dataAsArray[4];
+    var numpower;
+    if(totalpower<=2500){
+        document.getElementById("cardqualityval").innerHTML = "Common";
+        document.getElementById("cardqualityval").style.color = "rgb(186, 186, 186)";
+        numpower = 0;
+    } else {
+        if(totalpower<=5000){
+            document.getElementById("cardqualityval").innerHTML = "Uncommon";
+            document.getElementById("cardqualityval").style.color = "rgb(26, 172, 0)";
+            numpower = 1;
+        } else {
+            if(totalpower<=7500){
+                document.getElementById("cardqualityval").innerHTML = "Rare";
+                document.getElementById("cardqualityval").style.color = "rgb(1, 73, 216)";
+                numpower = 2;
+            } else{
+                document.getElementById("cardqualityval").innerHTML = "Legendary";
+                document.getElementById("cardqualityval").style.color = "rgb(152, 0, 172)";
+                numpower = 3;
+            }
+        }
+    }
+
+    var factionval = dataAsArray[5];
+    if(factionval==0){
+        document.getElementById("cardfactionval").innerHTML = "Magma";
+        document.getElementById("cardfactionval").style.color = "rgb(217, 0, 0)";
+    } else {
+        if(factionval==1){
+            document.getElementById("cardfactionval").innerHTML = "Ice";
+            document.getElementById("cardfactionval").style.color = "rgb(0, 217, 199)";
+        } else {
+            if(factionval==2){
+                document.getElementById("cardfactionval").innerHTML = "Poison";
+                document.getElementById("cardfactionval").style.color = "rgb(26, 172, 0)";
+            } else{
+                document.getElementById("cardfactionval").innerHTML = "Electric";
+                document.getElementById("cardfactionval").style.color = "rgb(217, 196, 0)";
+            }
+        }
+    }
+    document.getElementById("cardmeleeval").innerHTML = dataAsArray[0];
+    document.getElementById("cardshieldval").innerHTML = dataAsArray[1];
+    document.getElementById("cardmagicval").innerHTML = dataAsArray[2];
+    document.getElementById("cardrangeval").innerHTML = dataAsArray[3];
+    document.getElementById("cardtitle").innerHTML = dataAsArray[23];
+    document.getElementById("displayId").innerHTML = `Id: ${id}`;
+    document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10]}`;
+}
+
+async function changeName(){
+    _newname = document.getElementById("newname").value;
+    if (_newname.length < 21){
+        console.log("NO Demasiao");
+        await window.contract.methods.changeName(_newname, activeid).send({ from: account });
+        _newname = document.getElementById("changenamestatus").innerHTML = "Updating, please wait. Reload in a few seconds."
+    } else {
+        console.log("Demasiao");
+        _newname = document.getElementById("changenamestatus").innerHTML = "Name exceeds the 20 caps limit"
+    }
 }
 
 async function loadContract() {
@@ -606,9 +713,3 @@ async function loadContract() {
         }
     ], contractAddress);
 }
-
-
-function selectCard(id){
-    console.log(id);
-}
-

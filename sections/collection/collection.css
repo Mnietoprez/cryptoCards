@@ -151,6 +151,14 @@ body{
     width:90%;
     height: 100%;
     border-radius: 5px;
+    overflow: hidden;
+}
+
+.insidethecardimage img {
+    width: 100%;
+    height:auto;
+    overflow: hidden;
+    object-fit: cover;
 }
 
 .thecardstats{
@@ -211,4 +219,29 @@ body{
 .section:hover {
     transition: 0.15s;
     background-color:rgb(50, 34, 15);
+}
+
+.rhalfmanager button{
+    background-color: rgb(195, 168, 152);
+    font-size: 20px;
+    font-family: arial;
+    border-radius: 10px;
+    width:40%;
+    height:30px;
+}
+
+.rhalfmanager input{
+    background-color: rgb(195, 168, 152);
+    font-size: 15px;
+    font-family: arial;
+    border-radius: 5px;
+    width:80%;
+    height:20px;
+}
+
+
+.rhalfmanager button:hover {
+    transition: 0.15s;
+    transform:scale(1.1, 1.2);
+    background-color:rgb(122, 107, 98);
 }
