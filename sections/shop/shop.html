@@ -3,7 +3,7 @@
     <head>
         <title>Amazing CryptoCards</title>
         <link rel="stylesheet" type="text/css" href="shop.css">
-        <script src='../node_modules/web3/dist/web3.min.js'></script>
+        <script src='../../node_modules/web3/dist/web3.min.js'></script>
     </head>
     <body>
         <script src = shop.js></script>
@@ -28,7 +28,181 @@
         </div>
         <div class="vspace" style="height:60px"></div>
         <div class="maincontainer">
-            
+            <div class="hspace" style="width:2%;"></div>
+            <div class="content">
+
+                <div class="hspace" style="width:2.5%;"></div>
+                <div class="folder">
+                <div class="innercontent" id = "small">
+                    <div class="vspace" style="height:25px"></div>
+                    <div class="titlecontainer">
+                        <h1>SMALL CHEST</h1>
+                    </div>
+                    <div class="vspace" style="height:25px"></div>
+                    <div class="imagecontainer">
+                        <div class="hspace" style="width:15%;"></div>
+                        <img src="../../images/smallchest.png">
+                        <div class="hspace" style="width:15%;"></div>
+                    </div>
+                    <div class="vspace" style="height:25px"></div>
+                    <div class="butanddesc">
+                        <button onclick=buySmall()>Buy (8€)</button>
+                        <div class="vspace" style="height: 10px"></div>
+                        <p>Probabilities:</p>
+                    </div>
+                </div>
+                </div>
+                <div class="hspace" style="width:2.5%;"></div>
+                <div class="folder">
+                <div class="innercontent">
+
+                    <div class="mediumfix" id="medium">
+                        <div class="vspace" style="height:25px"></div>
+                        <div class="titlecontainer">
+                            <h1>MEDIUM CHEST</h1>
+                        </div>
+                        <div class="vspace" style="height:25px"></div>
+                        <div class="imagecontainer">
+                            <div class="hspace" style="width:15%;"></div>
+                            <img src="../../images/mediumchest.png">
+                            <div class="hspace" style="width:15%;"></div>
+                        </div>
+                        <div class="vspace" style="height:25px"></div>
+                        <div class="butanddesc">
+                            <button onclick=buyMedium()>Buy (15€)</button>
+                            <div class="vspace" style="height: 10px"></div>
+                            <p>Probabilities:</p>
+                        </div>
+                    </div>
+                    <div class="reward">
+                        <div class="hspace" style="width:35%;"></div>
+                        <div class="cardcontainer">
+                            <div class="vspace" style="height:0px"></div>
+                            <div class="titlecontainer" style="height:60px">
+                                <h1 style="font-size:35px; padding-top:0px;">Congratulations!</h1>
+                                <h1 style="font-size:15px; padding-top:5px;">You unlocked:</h1>
+                            </div>
+                            <div class="vspace" style="height:35px"></div>
+                            <div class="thecard">
+                                <div class="vspace" style="height:2.5%"></div>
+                                <div class="thecardtitle">
+                                    <div class="hspace" style="width:10%;"></div>
+                                    <div class="insidethecardtitle">
+                                        <h1 id="cardtitle">Cardtitle</h1>
+                                    </div>
+                                    <div class="hspace" style="width:10%;"></div>
+                                </div>
+                                <div class="vspace" style="height:2.5%"></div>
+                                <div class="thecardimage">
+                                    <div class="hspace" style="width:5%;"></div>
+                                    <div class="insidethecardimage">
+
+                                    </div>
+                                    <div class="hspace" style="width:5%;"></div>
+                                </div>
+                                <div class="thecardstats">
+                                    <div class="hspace" style="width:5%;"></div>
+                                    <div class="insidethecardstats">
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardtotalpower">Total Power:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardtotalpowerval">-</p>
+                                            </div>
+                                                    
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardquality">Quality:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardqualityval">-</p>
+                                            </div>
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardfaction">Faction:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardfactionval">-</p>
+                                            </div>
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardmelee">Melee:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardmeleeval">-</p>
+                                            </div>
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardshield">Shield:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardshieldval">-</p>
+                                            </div>
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardmagic">Magic:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardmagicval">-</p>
+                                            </div>
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                        <div class="statline">
+                                            <div class="statlinetext">
+                                                <p id="cardrange">Range:</p>
+                                            </div>
+                                            <div class="statlineval">
+                                                <p id="cardrangeval">-</p>
+                                            </div>
+                                        </div>
+                                        <div class="vspace" style="height:2.5%"></div>
+                                    </div>
+                                    <div class="hspace" style="width:5%;"></div>
+                                </div>
+                            </div>
+                            <div class="vspace" style="height:15px;"></div>
+                            <button onclick=reload()>Go back</button>
+                        </div>
+                        <div class="hspace" style="width:35%;"></div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="hspace" style="width:2.5%;"></div>
+                <div class="folder">
+                <div class="innercontent" id="large">
+                    <div class="vspace" style="height:25px"></div>
+                    <div class="titlecontainer">
+                        <h1>LARGE CHEST</h1>
+                    </div>
+                    <div class="vspace" style="height:25px"></div>
+                    <div class="imagecontainer">
+                        <div class="hspace" style="width:15%;"></div>
+                        <img src="../../images/largechest.png">
+                        <div class="hspace" style="width:15%;"></div>
+                    </div>
+                    <div class="vspace" style="height:25px"></div>
+                    <div class="butanddesc">
+                        <button onclick=buyLarge()>Buy (22€)</button>
+                        <div class="vspace" style="height: 10px"></div>
+                        <p>Probabilities:</p>
+                    </div>
+                </div>
+                </div>
+                <div class="hspace" style="width:2.5%;"></div>
+            </div>
+            <div class="hspace" style="width:2%;"></div>
         </div>
 
 
