@@ -1,15 +1,26 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "./cryptoCardToken.sol";
 
 abstract contract CardNFT is ERC721 {
 
-    CryptoCardToken token = ContratoImportado(tokenAddress);
-
+    address public owner;
+    
     modifier onlyContractOwner {
         require (msg.sender == owner);
         _;
     }
+
+    CryptoCardToken token;
+    address public tokenAddress;
+
+    function setTokenAddress (address _tokenAddress) public onlyContractOwner{
+        token = CryptoCardToken(_tokenAddress);
+        tokenAddress = _tokenAddress;
+    }
+    
 
     function changeContractOwner(address _newOwner) public onlyContractOwner(){
         owner = _newOwner;
@@ -40,8 +51,7 @@ abstract contract CardNFT is ERC721 {
     
     uint private nonce = 0;
     uint private id = 0;
-
-
+    
     function randomnum(bool _large) private returns(uint16){
         if (_large){
             uint16 val = uint16(uint(keccak256(abi.encodePacked(nonce, block.timestamp))) % 6000 + 4001);
@@ -57,8 +67,9 @@ abstract contract CardNFT is ERC721 {
     function openSmall () external {
         //the small pack loops the creation of the randnums a maximum of 10 times, where if the number is greater than 3000
         //another random number is picked, in order to reduce the probabilities of getting a good stat
-        require(balanceOf[msg.sender] >= 8000000000, "8 Matic is required to execute this function.");
-        token.transfer(owner, 8000000000);  
+        require(token.balanceOf(msg.sender) >= 8000, "8 Matic is required to execute this function.");
+        token.approve(msg.sender, tokenAddress , 8000);
+        token.transferFrom(msg.sender, tokenAddress, owner, 8000);  
 
         uint16[4] memory rands;
        
@@ -80,11 +91,12 @@ abstract contract CardNFT is ERC721 {
     }
 
        
-    function openMedium () external payable{
+    function openMedium () external {
          //the medium pack loops the creation of the randnums a maximum of 7 times, where if the number isnt between 3000 and 6500
         //another random number is picked, in order to moderate the probabilities of getting a good stat
-        require(balanceOf[msg.sender] >= 15000000000, "15 Matic is required to execute this function.");
-        token.transfer(owner, 15000000000);  
+        require(token.balanceOf(msg.sender) >= 15000, "15 Matic is required to execute this function.");
+        token.approve(msg.sender, tokenAddress , 15000);
+        token.transferFrom(msg.sender, tokenAddress, owner, 15000);   
 
         uint16[4] memory rands;
        
@@ -105,10 +117,11 @@ abstract contract CardNFT is ERC721 {
         mint(msg.sender);
     }
 
-    function openLarge () external payable{
+    function openLarge () external {
         // no limits to your luck (minimum of 4000 on each stat)!!!
-        require(balanceOf[msg.sender] >= 25000000000, "25 Matic is required to execute this function.");
-        token.transfer(owner, 25000000000);  
+        require(token.balanceOf(msg.sender) >= 25000, "25 Matic is required to execute this function.");
+        token.approve(msg.sender, tokenAddress , 25000);
+        token.transferFrom(msg.sender, tokenAddress, owner, 25000);  
 
         uint16[4] memory rands;
        

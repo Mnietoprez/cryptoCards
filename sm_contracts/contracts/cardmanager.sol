@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
 import "./cardcreator.sol";
@@ -6,11 +7,9 @@ import "./rustToken.sol";
 
 contract CardManager is CardNFT, Rust{
 
-    address public tokenAddress;
-
-    constructor() ERC721("AmazingCryptoCards" , "ACC", _tokenAddress){
+    
+    constructor() ERC721("AmazingCryptoCards" , "ACC"){
         owner = msg.sender;
-        tokenAddress = _tokenAddress;
     }
 
     modifier onlyTokenOwner(uint _tokenId) {

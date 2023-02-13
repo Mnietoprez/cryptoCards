@@ -11,6 +11,17 @@ contract CryptoCardToken is ERC20, ERC20Burnable, Ownable {
         _mint(msg.sender, 10000000);
     }
 
+    function approve(address owner, address spender, uint256 amount) public returns (bool){
+        _approve(owner, spender, amount);
+        return true;
+    }
+
+    function transferFrom(address from, address spender, address to, uint256 amount) public returns (bool) {
+        _spendAllowance(from, spender, amount);
+        _transfer(from, to, amount);
+        return true;
+    }
+
     function mint(address to, uint256 amount) public onlyOwner {
         _mint(to, amount);
     }
