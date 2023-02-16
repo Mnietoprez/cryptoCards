@@ -3,7 +3,7 @@
     <head>
         <title>Amazing CryptoCards</title>
         <link rel="stylesheet" type="text/css" href="market.css">
-        <script src='../node_modules/web3/dist/web3.min.js'></script>
+        <script src='../../node_modules/web3/dist/web3.min.js'></script>
     </head>
     <body>
         <script src = market.js></script>
@@ -28,6 +28,147 @@
         </div>
         <div class="vspace" style="height:60px"></div>
         <div class="maincontainer">
+            <div class="hspace" style="width:2%;"></div>
+            <div class="content">
+                <div class="hspace" style="width:2.5%;"></div>
+                <div class="innercontent">
+                    <div class="vspace" style="height:15px"></div>
+                    <div class="titlecontainer">
+                        <div class="hspace" style="width:10%;"></div>
+                        <div class="title">
+                            <h1>CARD MARKET</h1>
+                        </div>
+                        <div class="hspace" style="width:10%;"></div>
+                    </div>
+                    <div class="vspace" style="height:15px"></div>
+                    <div class="insidemarket">
+                        <div class="browsemarket">
+                            <div class="vspace" style="height:25px"></div>
+                            <div class="titlecontainer" style="height:20px;">
+                                <div class="hspace" style="width:10%;"></div>
+                                <div class="title" style="height:40px;">
+                                    <h1 style="font-size: 20px;">Available cards</h1>
+                                </div>
+                                <div class="hspace" style="width:10%;"></div>
+                            </div>
+                        </div>
+                        <div class="hspace" style="width:3%"></div>
+                        <div class="carddisplay">
+                            <div class="hspace" style="width:10%;"></div>
+                            <div class="thecardcontainer">
+                                <div class="vspace" style="height:25px"></div>
+                                <div style="position: relative; text-align: none;">
+                                    <input type="text" id="searchid" placeholder="Search by card ID">
+                                    <button style="position: absolute; right: 0;">🔎</button>
+                                </div>
+                                <div class="vspace" style="height:25px"></div>
+                                <div class="thecard">
+                                    <div class="vspace" style="height:2.5%"></div>
+                                    <div class="thecardtitle">
+                                        <div class="hspace" style="width:10%;"></div>
+                                        <div class="insidethecardtitle">
+                                            <h1 id="cardtitle"></h1>
+                                        </div>
+                                        <div class="hspace" style="width:10%;"></div>
+                                    </div>
+                                    <div class="vspace" style="height:2.5%"></div>
+                                    <div class="thecardimage">
+                                        <div class="hspace" style="width:5%;"></div>
+                                        <div class="insidethecardimage">
+                                            <img src="" id="cardimage">
+                                        </div>
+                                        <div class="hspace" style="width:5%;"></div>
+                                    </div>
+                                    <div class="thecardstats">
+                                        <div class="hspace" style="width:5%;"></div>
+                                        <div class="insidethecardstats">
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardtotalpower">Total Power:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardtotalpowerval">-</p>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardquality">Quality:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardqualityval">-</p>
+                                                </div>
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardfaction">Faction:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardfactionval">-</p>
+                                                </div>
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardmelee">Melee:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardmeleeval">-</p>
+                                                </div>
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardshield">Shield:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardshieldval">-</p>
+                                                </div>
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardmagic">Magic:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardmagicval">-</p>
+                                                </div>
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                            <div class="statline">
+                                                <div class="statlinetext">
+                                                    <p id="cardrange">Range:</p>
+                                                </div>
+                                                <div class="statlineval">
+                                                    <p id="cardrangeval">-</p>
+                                                </div>
+                                            </div>
+                                            <div class="vspace" style="height:2.5%"></div>
+                                        </div>
+                                        <div class="hspace" style="width:5%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hspace" style="width:10%;"></div>
+                        </div>
+                        <div class="hspace" style="width:3%"></div>
+                        <div class="mylist">
+                            <div class="vspace" style="height:25px"></div>
+                            <div class="titlecontainer" style="height:20px;">
+                                <div class="hspace" style="width:10%;"></div>
+                                <div class="title" style="height:40px;">
+                                    <h1 style="font-size: 20px;">My listed cards</h1>
+                                </div>
+                                <div class="hspace" style="width:10%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hspace" style="width:2.5%;"></div>
+            </div>
+            <div class="hspace" style="width:2%;"></div>
         </div>
 
 
@@ -35,3 +176,6 @@
 
     </body>
 </html>
+
+
+

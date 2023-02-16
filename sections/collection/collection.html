@@ -70,7 +70,7 @@
                                     <div class="thecardtitle">
                                         <div class="hspace" style="width:10%;"></div>
                                         <div class="insidethecardtitle">
-                                            <h1 id="cardtitle">Cardtitle</h1>
+                                            <h1 id="cardtitle"></h1>
                                         </div>
                                         <div class="hspace" style="width:10%;"></div>
                                     </div>
@@ -158,15 +158,28 @@
                             <div class="hspace" style="width:10%;"></div>
                         </div>
                         <div class="rhalfmanager">
-                            <h1>Options</h1>
+                            <div class="vspace" style="height:25px"></div>
+                            <div class="titlecontainer" style="height:20px;">
+                                <div class="hspace" style="width:10%;"></div>
+                                <div class="title" style="height:40px;">
+                                    <h1 style="font-size: 20px;">Options</h1>
+                                </div>
+                                <div class="hspace" style="width:10%;"></div>
+                            </div>
                             <br>
                             <br>
                             <br>
-                            <p style="background-color: rgba(0,0,0,0.2);">Change Card Name</p>
-                            <input type="text" id="newname" placeholder="Don't write more than 20 characters">
+                            <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Change Card Name</p>    
+                            <div style="position: relative; text-align: none; align-items: none;">
+                                <input type="text" id="newname" placeholder="Don't write more than 20 characters">
+                                <button  onClick=changeName() style="position: absolute; right: 0;">Submit</button>
+                            </div>
                             <br>
-                            <br>
-                            <button onClick=changeName()>Submit</button>
+                            <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Send card to another player</p>
+                            <div style="position: relative; text-align: none; align-items: none;">
+                                <input type="text" id="newname" placeholder="Enter blockchain address (0xd15f...)">
+                                <button  onClick=sendTo() style="position: absolute; right: 0;">Send</button>
+                            </div>
                             <p id="changenamestatus"></p>
                         </div>
                     </div>

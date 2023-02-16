@@ -95,11 +95,10 @@ body{
     height: 400px;
     border-radius: 10px;
     display:block;
-    text-align: center;
 }
 
 .rhalfmanager h1{
-    color: rgb(19, 6, 0);
+    color: rgb(207, 194, 186);
 }
 
 .thecardcontainer{
@@ -223,11 +222,11 @@ body{
 
 .rhalfmanager button{
     background-color: rgb(195, 168, 152);
-    font-size: 20px;
+    font-size: 15px;
     font-family: arial;
-    border-radius: 10px;
-    width:40%;
-    height:30px;
+    border-radius: 5px;
+    width:20%;
+    height:25px;
 }
 
 .rhalfmanager input{
@@ -235,7 +234,7 @@ body{
     font-size: 15px;
     font-family: arial;
     border-radius: 5px;
-    width:80%;
+    width:75%;
     height:20px;
 }
 
