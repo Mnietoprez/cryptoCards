@@ -13,7 +13,7 @@ body{
 
 .section {
     background-color: rgb(45, 24, 0);
-    width:15%;
+    width:14%;
     height:100%;
     border-radius: 10px; 
     text-align: center;
@@ -24,6 +24,23 @@ body{
     font-size: 30px;
     text-decoration: none;
     color: rgb(207, 194, 186);
+}
+
+.section h1 {
+    font-size: 15px;
+    text-decoration: none;
+    color: rgb(207, 194, 186);
+}
+
+.tokenimg{
+    width:3%;
+    height:100%;
+    padding-top:5px ;
+}
+
+.tokenimg img{
+    width:80%;
+    height:80%;
 }
 
 .maincontainer{
@@ -215,7 +232,7 @@ body{
 
 .innercontent button{
     background-color: rgb(195, 168, 152);
-    font-size: 20px;
+    font-size: 15px;
     font-family: arial;
     border-radius: 10px;
     cursor: pointer;

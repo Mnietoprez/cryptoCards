@@ -8,23 +8,43 @@
     <body>
         <script src = shop.js></script>
         <div class="titlebar">
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../collection/collection.html">COLLECTION</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../arena/arena.html">ARENA</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../market/market.html">MARKET</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="#">SHOP</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
+            <div class="tokenimg">
+                <img src="../../images/token.png">
+            </div>
+            <div class="section" style="width:6%;">
+                <h1 id="cardToken"></h1>
+            </div>
+            <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
+                <h1>CCT</h1>
+            </div>
+            <div class="hspace" style="width:2%;"></div>
+            <div class="tokenimg">
+                <img src="../../images/rust.png">
+            </div>
+            <div class="section" style="width:6%">
+                <h1 id="rust"></h1>
+            </div>
+            <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
+                <h1>RST</h1>
+            </div>
+            <div class="hspace" style="width:3%;"></div>
         </div>
         <div class="vspace" style="height:60px"></div>
         <div class="maincontainer">
@@ -46,7 +66,7 @@
                     </div>
                     <div class="vspace" style="height:25px"></div>
                     <div class="butanddesc">
-                        <button onclick=buySmall()>Buy (8€)</button>
+                        <button onclick=confirmPurchase(0) id="smallButton">Buy [1 CCT]</button>
                         <div class="vspace" style="height: 10px"></div>
                         <p>Probabilities:</p>
                     </div>
@@ -69,7 +89,7 @@
                         </div>
                         <div class="vspace" style="height:25px"></div>
                         <div class="butanddesc">
-                            <button onclick=buyMedium()>Buy (15€)</button>
+                            <button onclick=confirmPurchase(1) id="mediumButton">Buy [4 CCT]</button>
                             <div class="vspace" style="height: 10px"></div>
                             <p>Probabilities:</p>
                         </div>
@@ -194,7 +214,7 @@
                     </div>
                     <div class="vspace" style="height:25px"></div>
                     <div class="butanddesc">
-                        <button onclick=buyLarge()>Buy (22€)</button>
+                        <button onclick=confirmPurchase(2) id="largeButton">Buy [10 CCT]</button>
                         <div class="vspace" style="height: 10px"></div>
                         <p>Probabilities:</p>
                     </div>
