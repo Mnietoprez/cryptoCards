@@ -52,7 +52,7 @@
             <div class="content">
                 <div class="hspace" style="width:2.5%;"></div>
                 <div class="innercontent">
-                    <div class="vspace" style="height:15px"></div>
+                    <div class="vspace" style="height:2.5%"></div>
                     <div class="titlecontainer">
                         <div class="hspace" style="width:10%;"></div>
                         <div class="title">
@@ -60,10 +60,52 @@
                         </div>
                         <div class="hspace" style="width:10%;"></div>
                     </div>
-                    <div class="vspace" style="height:15px"></div>
-                    <div class="cardcontainer" id="cardcontainer">
-
+                    <div class="vspace" style="height:2.5%"></div>
+                    <div class="collectioncontainer" id="collectioncontainer">
+                        <div class="collectionslot" id="slot0">
+                            <p id="text0"></p>
+                        </div>
+                        <div class="collectionslot" id="slot1">
+                            <p id="text1"></p>
+                        </div>
+                        <div class="collectionslot" id="slot2">
+                            <p id="text2"></p>
+                        </div>
+                        <div class="collectionslot" id="slot3">
+                            <p id="text3"></p>
+                        </div>
+                        <div class="collectionslot" id="slot4">
+                            <p id="text4"></p>
+                        </div>
+                        <div class="collectionslot" id="slot5">
+                            <p id="text5"></p>
+                        </div>
+                        <div class="collectionslot" id="slot6">
+                            <p id="text6"></p>
+                        </div>
+                        <div class="collectionslot" id="slot7">
+                            <p id="text7"></p>
+                        </div>
+                        <div class="collectionslot" id="slot8">
+                            <p id="text8"></p>
+                        </div>
                     </div>
+                    <div class="vspace" style="height:2.5%;"></div>
+                    <div class="collectionsettings">
+                        <div style="width:30%;">
+                            <p style="padding-left: 60px; padding-top:5px; color:rgb(195, 168, 152)" id="pagecounter">Page 1 of 1</p>
+                        </div>
+                        <div style="width:40%; display:block">
+                            <div class="vspace" style="height:30%"></div>
+                            <div style="height:40%; display:flex"> 
+                                <button onClick=prevpage()><</button>      
+                                <div class="hspace" style="width:10%"></div>
+                                <button onClick=nextpage()>></button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="hspace" style="height:2.5%;"></div>
                 </div>
                 <div class="hspace" style="width:2.5%;"></div>
             </div>
@@ -71,7 +113,7 @@
             <div class="content">
                 <div class="hspace" style="width:2.5%;"></div>
                 <div class="innercontent">
-                    <div class="vspace" style="height:15px"></div>
+                    <div class="vspace" style="height:2.5%"></div>
                     <div class="titlecontainer">
                         <div class="hspace" style="width:10%;"></div>
                         <div class="title">
@@ -79,7 +121,7 @@
                         </div>
                         <div class="hspace" style="width:10%;"></div>
                     </div>
-                    <div class="vspace" style="height:15px"></div>
+                    <div class="vspace" style="height:2.5%"></div>
                     <div class="manager">
                         <div class="lhalfmanager">
                             <div class="hspace" style="width:10%;"></div>
@@ -181,8 +223,8 @@
                             <div class="vspace" style="height:25px"></div>
                             <div class="titlecontainer" style="height:20px;">
                                 <div class="hspace" style="width:10%;"></div>
-                                <div class="title" style="height:40px;">
-                                    <h1 style="font-size: 20px;">Options</h1>
+                                <div class="title" style="height:45px;">
+                                    <h1 style="font-size: 20px;">OPTIONS</h1>
                                 </div>
                                 <div class="hspace" style="width:10%;"></div>
                             </div>
@@ -197,12 +239,14 @@
                             <br>
                             <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Send card to another player</p>
                             <div style="position: relative; text-align: none; align-items: none;">
-                                <input type="text" id="newname" placeholder="Enter blockchain address (0xd15f...)">
+                                <input type="text" id="newname" placeholder="Enter blockchain address (0xab...)">
                                 <button  onClick=sendTo() style="position: absolute; right: 0;">Send</button>
                             </div>
                             <p id="changenamestatus"></p>
                         </div>
+                        <div class="hspace" style="width:5%"></div>
                     </div>
+                    <div class="vspace" style="height:2.5%"></div>
                 </div>
                 <div class="hspace" style="width:2.5%;"></div>
             </div>

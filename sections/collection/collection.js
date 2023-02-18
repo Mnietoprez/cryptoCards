@@ -2,58 +2,112 @@ var tokenAddress = "0x29945D9677959984B295502F4101F974DE2807c3";
 var contractAddress = "0xa029A03744B3B005CDB6Ef55a6592277A05139CD";
 var activeid;
 var account;
+var ids;
+var n1= 0;
+var n2 = 8;
+var page = 1;
+var pages;
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
     account = await getCurrentAccount();
     window.token = await loadToken();
 
-    ids = await window.contract.methods.cardsOfAdress(account).call();
-
     document.getElementById("cardToken").innerHTML=digitFormatter(await window.token.methods.balanceOf(account).call());
     document.getElementById("rust").innerHTML=await window.contract.methods.rustBalanceOf(account).call();
 
-    let parent = document.getElementById("cardcontainer");
-    for (let i = 0; i < ids.length; i++) {
-        var div = document.createElement('div');
+    ids = await window.contract.methods.cardsOfAdress(account).call();
+    pages = Math.ceil(ids.length/9);
+    document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
+    if (ids.length<10){
+        loadSlots(0,ids.length);
+    } else{
+        loadSlots(0,8);
+    }
+
+    selectCard(ids[0]);
+}
+
+async function loadSlots(n1, n2){
+    console.log(n1);
+    console.log(n2);
+    var sl = 0;
+    for (let i = n1; i < n2+1; i++) {
+        var slot = document.getElementById(`slot${sl}`);
+        var text = document.getElementById(`text${sl}`);
+        sl++;
         var rawData = await window.contract.methods.cards(ids[i]).call();
         var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
-
-        div.style.width = "100%";
-        div.style.height= "30px";
-        div.style.borderRadius= "10px";
-
         var totalpower = dataAsArray[4];
+
         if(totalpower<=2500){
-            div.style.backgroundColor = "rgba(186, 186, 186, 0.1)";
+            slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
         } else {
             if(totalpower<=5000){
-                div.style.backgroundColor = "rgba(26, 172, 0, 0.1)";
+                slot.style.backgroundColor = "rgba(26, 172, 0, 0.2)";
             } else {
                 if(totalpower<=7500){
-                    div.style.backgroundColor = "rgba(1, 73, 216, 0.1)";
+                    slot.style.backgroundColor = "rgba(1, 73, 216, 0.2)";
                 } else{
-                    div.style.backgroundColor = "rgba(152, 0, 172, 0.1)";
+                    slot.style.backgroundColor = "rgba(152, 0, 172, 0.2)";
                 }
             }
         }
-        parent.appendChild(div);
-
-        const id = document.createElement("p");
-
-        
-
-        const textNode = document.createTextNode(`Id: ${ids[i]}, Name: ${dataAsArray[23]}`);
-        id.appendChild(textNode);
-        id.style.paddingTop = "4px";
-        id.style.paddingLeft = "20px";
-        id.style.cursor = "pointer";
-        id.style.color = "rgb(231, 216, 201)";
-        div.appendChild(id);
-
-        id.onclick = function() { selectCard(ids[i]); };
+        text.innerHTML = `Id: ${ids[i]}, Name: ${dataAsArray[23]}`;
+        slot.style.cursor = "pointer";
+        slot.onclick = function() { selectCard(ids[i]); };
     }
-    selectCard(ids[0]);
+    if (lastpage){
+        for (let i = rest; i <= 9 ; i++) { 
+            var slot = document.getElementById(`slot${i}`);
+            var text = document.getElementById(`text${i}`);
+            text.innerHTML = "";
+            slot.style.cursor = "default";
+            slot.style.backgroundColor = "rgba(0,0,0,0.05)"
+            slot.onclick = function() {};
+        }
+    }
+}
+
+async function prevpage(){
+    if(n1==0){
+        console.log("There doesn't exist a previous page")
+    } else {
+        if(lastpage){
+            n1=n1-9;
+            n2=n2-rest;
+            lastpage = false;
+        } else {
+            n1=n1-9;
+            n2=n2-9;
+        }  
+        page--; 
+        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`;  
+        await loadSlots(n1,n2);    
+    }
+}
+
+var rest;
+var lastpage;
+
+async function nextpage(){
+    if(n2==ids.length-1){
+        console.log("There doesn't exist a next page")
+    } else {
+        n1=n1+9;
+        
+        if (ids.length-1 > n2+9){
+            n2=n2+9;
+        } else{
+            rest = ids.length%9;
+            n2 = n2 + rest;
+            lastpage = true;
+        }   
+        page++;
+        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`; 
+        await loadSlots(n1,n2); 
+
+    }
 }
 
 async function loadWeb3() {
