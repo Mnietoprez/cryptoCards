@@ -5,12 +5,7 @@ import "./cardcreator.sol";
 import "./rustToken.sol";
 
 
-contract CardManager is CardNFT, Rust{
-
-    
-    constructor() ERC721("AmazingCryptoCards" , "ACC"){
-        owner = msg.sender;
-    }
+abstract contract CardManager is CardNFT, Rust{
 
     modifier onlyTokenOwner(uint _tokenId) {
         //checks that a public function that involves a specific card id is called by the owner of that card

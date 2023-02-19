@@ -1,70 +1,42 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "./cardnft.sol";
+import "./cardmanager.sol";
 
 
-contract CardMarket is CardNFT{
+contract CardMarket is CardManager{
 
-    using SafeMath for uint256;
-    event cardAvailableToBuy(uint _id, uint _power, uint _price, uint _saleDate);
+    constructor() ERC721("AmazingCryptoCards" , "ACC"){
+        owner = msg.sender;
+    }
 
     mapping (uint => uint) priceOfCard;
     mapping (uint => uint) private indexOfCard;
-    uint index;
 
     function viewPrice(uint _id) public view returns (uint){
-        require (cards[_id].onSale == true);
+        require (cards[_id].onSale == true, "Card is not on sale");
         return priceOfCard[_id];
     }
 
-    function sellCard (uint _id, uint _price) public onlyOwner(_id){
+    function sellCard (uint _id, uint _price) public onlyTokenOwner(_id){
         require (cards[_id].onSale == false);
         require (cards[_id].onFight == false);
         cards[_id].onSale = true;
         priceOfCard[_id] = _price;
-        indexOfCard[_id] = index;
-        index++;
-        emit cardAvailableToBuy(_id, cards[_id].totalPower, _price, block.timestamp);
     }
 
-    function cancelSale (uint _id) public  onlyOwner(_id){
-
-        //code to move the last card on the market to the new spot; doesnt work 
-        /*
-        uint emptySlot = indexOfCard[_id];
-        card storage lastCard = theMarket[index];
-        
-        delete theMarket[index];
-        theMarket[emptySlot] = lastCard;
-        index--;
-        */   
-        cards[_id].onSale = false;
-             
+    function cancelSale (uint _id) public  onlyTokenOwner(_id){
+        cards[_id].onSale = false; 
     }
 
     function buyCard (uint _id) public {
-        
-        require (CardToken(tokenAddress).balanceOf(msg.sender)>= priceOfCard[_id]);
+        require (token.balanceOf(msg.sender)>= priceOfCard[_id]);
         require (cards[_id].onSale == true);
-        
-        cardCounter[msg.sender] = cardCounter[msg.sender].add(1);
-        cardCounter[cardToOwner[_id]] = cardCounter[cardToOwner[_id]].sub(1);
-        cardToOwner[_id] = msg.sender;
-        CardToken(tokenAddress).burn(priceOfCard[_id], msg.sender);
-        CardToken(tokenAddress).generate(priceOfCard[_id], cardToOwner[_id]);
 
-        //code to move the last card on the market to the new spot; doesnt work
-        /*
-        uint emptySlot = indexOfCard[_id];
-        card memory lastCard = theMarket[index];
-        delete theMarket[index];
-        theMarket[emptySlot] = lastCard;
-        index--;
-        */
+        token.approve(msg.sender, tokenAddress , priceOfCard[_id]);
+        token.transferFrom(msg.sender, tokenAddress, ownerOf(_id), priceOfCard[_id]); 
+        _transfer(ownerOf(_id), msg.sender, _id);
         cards[_id].onSale = false;
     }
 
 }
-
-
-

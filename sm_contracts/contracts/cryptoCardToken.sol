@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract CryptoCardToken is ERC20, ERC20Burnable, Ownable {
 
     constructor() ERC20("CryptoCardToken", "CCT") {
-        _mint(msg.sender, 10000000);
+        _mint(msg.sender, 10e22);
     }
 
     function approve(address owner, address spender, uint256 amount) public returns (bool){
