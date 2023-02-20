@@ -63,7 +63,8 @@
                     <div class="vspace" style="height:2.5%"></div>
                     <div class="collectioncontainer" id="collectioncontainer">
                         <div class="collectionslot" id="slot0">
-                            <p id="text0"></p>
+                                <p id="text0"></p>
+                                <p></p>
                         </div>
                         <div class="collectionslot" id="slot1">
                             <p id="text1"></p>
@@ -215,11 +216,11 @@
                                         <div class="hspace" style="width:5%;"></div>
                                     </div>
                                 </div>
-                                <p id="displayId" style="color: rgb(195, 168, 152)">Id:</p>
+                                <p id="displayId" style="color: rgb(195, 168, 152); background-color: rgba(0,0,0,0.2);">Id:</p>
                             </div>
                             <div class="hspace" style="width:10%;"></div>
                         </div>
-                        <div class="rhalfmanager">
+                        <div class="rhalfmanager" style="text-align: center;">
                             <div class="vspace" style="height:25px"></div>
                             <div class="titlecontainer" style="height:20px;">
                                 <div class="hspace" style="width:10%;"></div>
@@ -230,19 +231,29 @@
                             </div>
                             <br>
                             <br>
-                            <br>
                             <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Change Card Name</p>    
-                            <div style="position: relative; text-align: none; align-items: none;">
+                            <div style="position: relative; text-align: left;">
                                 <input type="text" id="newname" placeholder="Don't write more than 20 characters">
                                 <button  onClick=changeName() style="position: absolute; right: 0;">Submit</button>
                             </div>
-                            <br>
+                            <p id="changenamestatus" style="color: rgb(207, 194, 186); height: 5px;">&nbsp</p>
                             <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Send card to another player</p>
-                            <div style="position: relative; text-align: none; align-items: none;">
+                            <div style="position: relative; text-align: left;">
                                 <input type="text" id="newname" placeholder="Enter blockchain address (0xab...)">
                                 <button  onClick=sendTo() style="position: absolute; right: 0;">Send</button>
                             </div>
-                            <p id="changenamestatus"></p>
+                            <br>
+                            <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Upgrade stats</p>
+                            <button  onClick=sendTo() style="width:60%; height:40px" id="upgradestatus"></button>
+                            <br>
+                            <br>
+                            <p style="color: rgb(207, 194, 186); background-color: rgba(0,0,0,0.2);">Sell card</p>
+                            <div style="position: relative; text-align: left;">
+                                <input type="text" id="sellValue" placeholder="" style="width:60%">
+                                <button  id="sellButton" style="position: absolute; right: 0; width:35%">Create offer</button>
+                            </div>
+                            <p id="sellstatus" style="color: rgb(207, 194, 186); height: 5px;">&nbsp</p>
+                            
                         </div>
                         <div class="hspace" style="width:5%"></div>
                     </div>

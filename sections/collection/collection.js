@@ -31,8 +31,6 @@ window.onload = async function(){
 }
 
 async function loadSlots(n1, n2){
-    console.log(n1);
-    console.log(n2);
     var sl = 0;
     for (let i = n1; i < n2+1; i++) {
         var slot = document.getElementById(`slot${sl}`);
@@ -55,7 +53,7 @@ async function loadSlots(n1, n2){
                 }
             }
         }
-        text.innerHTML = `Id: ${ids[i]}, Name: ${dataAsArray[23]}`;
+        text.innerHTML = `|&nbspId: ${ids[i]}&nbsp|&nbsp&nbsp&nbsp Name: ${dataAsArray[23]}`;
         slot.style.cursor = "pointer";
         slot.onclick = function() { selectCard(ids[i]); };
     }
@@ -212,18 +210,53 @@ async function selectCard(id){
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
     document.getElementById("displayId").innerHTML = `Id: ${id}`;
     document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10]}`;
+    if (dataAsArray[8]) {
+        salevalue = await window.contract.methods.viewPrice(id).call();
+        document.getElementById("sellValue").placeholder = `Card already for sale (${salevalue} CCT) `;
+        document.getElementById("sellValue").style.width = "100%";
+        document.getElementById("sellButton").style.opacity = "0%";
+        document.getElementById("sellButton").style.cursor = "default"
+        document.getElementById("sellButton").onclick = function() { uselessfunction() };;
+    } else {
+        document.getElementById("sellValue").placeholder = `CCT amount (in 10e-18)`;
+        document.getElementById("sellButton").onclick = function() { createOffer() };
+        document.getElementById("sellValue").style.width = "60%";
+        document.getElementById("sellButton").style.opacity = "100%";
+        document.getElementById("sellButton").style.cursor = "pointer"
+    }
+    
+    
+    if (dataAsArray[6]){
+        document.getElementById("upgradestatus").innerHTML= "Available!";
+    } else {
+        document.getElementById("upgradestatus").innerHTML = "Win a pvp battle first";
+    }
 }
 
+function uselessfunction(){
+    console.log("nothing");
+}
 async function changeName(){
     _newname = document.getElementById("newname").value;
     if (_newname.length < 21){
-        console.log("NO Demasiao");
+        document.getElementById("changenamestatus").innerHTML = "Updating, please wait a few seconds."
         await window.contract.methods.changeName(_newname, activeid).send({ from: account });
-        _newname = document.getElementById("changenamestatus").innerHTML = "Updating, please wait. Reload in a few seconds."
+        document.getElementById("changenamestatus").innerHTML = "&nbsp"
     } else {
-        console.log("Demasiao");
-        _newname = document.getElementById("changenamestatus").innerHTML = "Name exceeds the 20 caps limit"
+        document.getElementById("changenamestatus").innerHTML = "Name exceeds the 20 caps limit"
     }
+}
+
+async function createOffer(){
+    amount = document.getElementById("sellValue").value;
+    if(amount == undefined || amount<=0){
+        document.getElementById("sellstatus").innerHTML = "Please enter a valid quantity"
+    } else {
+        console.log(amount);
+        document.getElementById("sellstatus").innerHTML = "Updating, please wait a few seconds."
+        await window.contract.methods.sellCard(activeid, amount).send({ from: account });
+    }
+    
 }
 
 async function loadContract() {
