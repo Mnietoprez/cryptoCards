@@ -2,122 +2,14 @@ var tokenAddress = "0x9B92BaC28E15f7C33763C16da4FB97E3dAd58b02";
 var contractAddress = "0x0C357dF7C5fdb093AA2F2dfd69A52Db8a726783D";
 var activeid;
 var account;
-var ids;
-var page = 1;
-var pages;
-var n1= 0;
-var n2;
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
-    account = await getCurrentAccount();
     window.token = await loadToken();
+    account = await getCurrentAccount();
 
     document.getElementById("cardToken").innerHTML=digitFormatter(await window.token.methods.balanceOf(account).call());
     document.getElementById("rust").innerHTML=await window.contract.methods.rustBalanceOf(account).call();
-
-    ids = await window.contract.methods.cardsOfAdress(account).call();
-    pages = Math.ceil(ids.length/9);
-    document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
-    if (ids.length<10){
-        loadSlots(0,ids.length);
-        n2 = ids.length-1;
-    } else{
-        loadSlots(0,8);
-        n2 = 8;
-    }
-
-    selectCard(ids[0]);
-}
-
-async function loadSlots(n1, n2){
-    console.log(n1);
-    console.log(n2);
-    var sl = 0;
-    for (let i = n1; i < n2+1; i++) {
-        var slot = document.getElementById(`slot${sl}`);
-        var text = document.getElementById(`text${sl}`);
-        sl++;
-        var rawData = await window.contract.methods.cards(ids[i]).call();
-        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
-        var totalpower = dataAsArray[4];
-
-        if(totalpower<=2500){
-            slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
-        } else {
-            if(totalpower<=5000){
-                slot.style.backgroundColor = "rgba(26, 172, 0, 0.2)";
-            } else {
-                if(totalpower<=7500){
-                    slot.style.backgroundColor = "rgba(1, 73, 216, 0.2)";
-                } else{
-                    slot.style.backgroundColor = "rgba(152, 0, 172, 0.2)";
-                }
-            }
-        }
-        text.innerHTML = `Id: ${ids[i]}, Name: ${dataAsArray[23]}`;
-        slot.style.cursor = "pointer";
-        slot.onclick = function() { selectCard(ids[i]); };
-    }
-    if (lastpage){
-        for (let i = rest; i <= 9 ; i++) { 
-            var slot = document.getElementById(`slot${i}`);
-            var text = document.getElementById(`text${i}`);
-            text.innerHTML = "";
-            slot.style.cursor = "default";
-            slot.style.backgroundColor = "rgba(0,0,0,0.05)"
-            slot.onclick = function() {};
-        }
-    }
-}
-
-
-async function prevpage(){
-    if(n1==0){
-        console.log("There doesn't exist a previous page")
-    } else {
-        if(lastpage){
-            n1=n1-9;
-            n2=n2-rest;
-            lastpage = false;
-        } else {
-            n1=n1-9;
-            n2=n2-9;
-        }  
-        page--; 
-        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`;  
-        await loadSlots(n1,n2);    
-    }
-}
-
-var rest;
-var lastpage;
-
-async function nextpage(){
-    if(n2==ids.length-1){
-        console.log("There doesn't exist a next page")
-    } else {
-        n1=n1+9;
-        
-        if (ids.length-1 > n2+9){
-            n2=n2+9;
-        } else{
-            rest = ids.length%9;
-            n2 = n2 + rest;
-            lastpage = true;
-        }   
-        page++;
-        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`; 
-        await loadSlots(n1,n2); 
-
-    }
-}
-
-async function loadWeb3() {
-    if (window.ethereum) {
-        window.web3 = new Web3(window.ethereum);
-        await window.ethereum.enable();
-    }
 }
 
 function digitFormatter(n){
@@ -131,30 +23,114 @@ function digitFormatter(n){
     return parsed;
 }
 
+async function loadWeb3() {
+    if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+    }
+}
+
 async function getCurrentAccount() {
     const accounts = await window.web3.eth.getAccounts();
     return accounts[0];
 }
 
-var images = {
-    0: "../../images/commonmagma.jpg",
-    10: "../../images/commonice.jpg",
-    20: "../../images/commonpoison.jpg",
-    30: "../../images/commonelectric.jpg",
-    100: "../../images/uncommonmagma.jpg",
-    110: "../../images/uncommonice.jpg",
-    120: "../../images/uncommonpoison.jpg",
-    130: "../../images/uncommonelectric.jpg",
-    200: "../../images/raremagma.jpg",
-    210: "../../images/rareice.jpg",
-    220: "../../images/rarepoison.jpg",
-    230: "../../images/rareelectric.jpg",
-    300: "../../images/legendarymagma.jpg",
-    310: "../../images/legendaryice.jpg",
-    320: "../../images/legendarypoison.jpg",
-    330: "../../images/legendaryelectric.jpg",
+var stopFlag = false;
+
+function confirmTimeout(id){
+    document.getElementById(id).innerHTML = "Click to confirm (10)";
+    document.getElementById(id).style.backgroundColor = "green";
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (9)";
+        }
+    }, 1000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (8)";
+        }
+    }, 2000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (7)";
+        }
+    }, 3000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (6)";
+        }
+    }, 4000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (5)";
+        }
+    }, 5000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (4)";
+        }
+    }, 6000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (3)";
+        }
+    }, 7000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (2)";
+        }
+    }, 8000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).innerHTML = "Click to confirm (1)";
+        }
+    }, 9000);
+    setTimeout(function() {
+        if (!stopFlag) {
+            document.getElementById(id).style.backgroundColor = "red";
+            document.getElementById(id).innerHTML = "Reload page";
+            document.getElementById(id).onclick = function() { reload() }
+        }
+        
+    }, 10000);
 }
 
+function confirmed(id){
+    stopFlag=true;
+    document.getElementById(id).innerHTML = "Confirm and wait";
+    document.getElementById(id).style.backgroundColor = "rgb(207, 194, 186)";
+}
+
+function metamaskFailed(id){
+    document.getElementById(id).innerHTML = "Metamask failed";
+    document.getElementById(id).style.backgroundColor = "red";
+}
+
+var notBuying = true;
+function confirmPurchase(n){
+    if (notBuying){
+        if (n==0){
+            notBuying = false;
+            confirmTimeout("smallButton");
+            document.getElementById("smallButton").onclick = function() { buySmall() };
+        } else {
+            if (n==1){
+                notBuying = false;
+                confirmTimeout("mediumButton");
+                document.getElementById("mediumButton").onclick = function() { buyMedium() };
+            } else {
+                notBuying = false;
+                confirmTimeout("largeButton");
+                document.getElementById("largeButton").onclick = function() { buyLarge() };
+            }
+        }
+    }
+    
+    
+}
+function searchCard(){
+    selectCard(document.getElementById("searchid").value)
+}
 
 async function selectCard(id){
     const rawData = await window.contract.methods.cards(id).call();
@@ -212,18 +188,6 @@ async function selectCard(id){
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
     document.getElementById("displayId").innerHTML = `Id: ${id}`;
     document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10]}`;
-}
-
-async function changeName(){
-    _newname = document.getElementById("newname").value;
-    if (_newname.length < 21){
-        console.log("NO Demasiao");
-        await window.contract.methods.changeName(_newname, activeid).send({ from: account });
-        _newname = document.getElementById("changenamestatus").innerHTML = "Updating, please wait. Reload in a few seconds."
-    } else {
-        console.log("Demasiao");
-        _newname = document.getElementById("changenamestatus").innerHTML = "Name exceeds the 20 caps limit"
-    }
 }
 
 async function loadContract() {
@@ -1293,4 +1257,3 @@ async function loadToken() {
         }
     ], tokenAddress);
 }
-

@@ -8,23 +8,43 @@
     <body>
         <script src = market.js></script>
         <div class="titlebar">
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../collection/collection.html">COLLECTION</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../arena/arena.html">ARENA</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="#">MARKET</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../shop/shop.html">SHOP</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
+            <div class="tokenimg">
+                <img src="../../images/token.png">
+            </div>
+            <div class="section" style="width:6%;">
+                <h1 id="cardToken"></h1>
+            </div>
+            <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
+                <h1>CCT</h1>
+            </div>
+            <div class="hspace" style="width:2%;"></div>
+            <div class="tokenimg">
+                <img src="../../images/rust.png">
+            </div>
+            <div class="section" style="width:6%">
+                <h1 id="rust"></h1>
+            </div>
+            <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
+                <h1>RST</h1>
+            </div>
+            <div class="hspace" style="width:3%;"></div>
         </div>
         <div class="vspace" style="height:60px"></div>
         <div class="maincontainer">
@@ -33,9 +53,9 @@
                 <div class="hspace" style="width:2.5%;"></div>
                 <div class="innercontent">
                     <div class="vspace" style="height:15px"></div>
-                    <div class="titlecontainer">
+                    <div class="titlecontainer" style="height:10 ">
                         <div class="hspace" style="width:10%;"></div>
-                        <div class="title">
+                        <div class="title" style="height:55px;">
                             <h1>CARD MARKET</h1>
                         </div>
                         <div class="hspace" style="width:10%;"></div>
@@ -43,14 +63,83 @@
                     <div class="vspace" style="height:15px"></div>
                     <div class="insidemarket">
                         <div class="browsemarket">
-                            <div class="vspace" style="height:25px"></div>
-                            <div class="titlecontainer" style="height:20px;">
+                            <div class="vspace" style="height:5%"></div>
+                            <div class="titlecontainer">
                                 <div class="hspace" style="width:10%;"></div>
-                                <div class="title" style="height:40px;">
-                                    <h1 style="font-size: 20px;">Available cards</h1>
+                                <div class="title" >
+                                    <h1 style="font-size: 20px;">AVAILABLE CARDS</h1>
                                 </div>
                                 <div class="hspace" style="width:10%;"></div>
                             </div>
+                            <div class="vspace" style="height:2.5%"></div>
+                            <div style="display:block; height:80%;">
+                                <div style="display:flex; height:80%">
+                                    <div class="hspace" style="width:2.5%"></div>
+                                    <div style="height:100%; width:95%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px; display:block">
+                                        <div style="height:50%;; border-radius: 10px; display:flex">
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                        </div>
+                                        <div style="height:50%;; border-radius: 10px; display:flex">
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
+                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hspace" style="width:2.5%"></div>
+                                </div>
+                                <div class="vspace" style="height:4%"></div>
+                                <div style="display:flex; height:15%">
+                                    <div class="hspace" style="width:2.5%"></div>
+                                    <div class=marketsettings>
+                                        <div style="width:30%;">
+                                            <p style="padding-left: 60px; padding-top:5px; color:rgb(195, 168, 152)" id="pagecounter">Page 1 of 1</p>
+                                        </div>
+                                        <div style="width:40%; display:block">
+                                            <div class="vspace" style="height:30%"></div>
+                                            <div style="height:40%; display:flex"> 
+                                                <button onClick=prevpage()><</button>      
+                                                <div class="hspace" style="width:10%"></div>
+                                                <button onClick=nextpage()>></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hspace" style="width:2.5%"></div>
+                                </div>
+                            </div>   
                         </div>
                         <div class="hspace" style="width:3%"></div>
                         <div class="carddisplay">
@@ -59,7 +148,7 @@
                                 <div class="vspace" style="height:25px"></div>
                                 <div style="position: relative; text-align: none;">
                                     <input type="text" id="searchid" placeholder="Search by card ID">
-                                    <button style="position: absolute; right: 0;">🔎</button>
+                                    <button style="position: absolute; right: 0; cursor:pointer" onclick=searchCard()>🔎</button>
                                 </div>
                                 <div class="vspace" style="height:25px"></div>
                                 <div class="thecard">
@@ -155,13 +244,41 @@
                         </div>
                         <div class="hspace" style="width:3%"></div>
                         <div class="mylist">
-                            <div class="vspace" style="height:25px"></div>
-                            <div class="titlecontainer" style="height:20px;">
+                            <div class="vspace" style="height:5%"></div>
+                            <div class="titlecontainer">
                                 <div class="hspace" style="width:10%;"></div>
-                                <div class="title" style="height:40px;">
+                                <div class="title">
                                     <h1 style="font-size: 20px;">My listed cards</h1>
                                 </div>
                                 <div class="hspace" style="width:10%;"></div>
+                            </div>
+                            <div class="vspace" style="height:2.5%"></div>
+                            <div style="display:block; height:80%;">
+                                <div style="display:flex; height:80%">
+                                    <div class="hspace" style="width:5%"></div>
+                                    <div style="height:100%; width:90%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+
+                                    </div>
+                                    <div class="hspace" style="width:2.5%"></div>
+                                </div>
+                                <div class="vspace" style="height:4%"></div>
+                                <div style="display:flex; height:15%">
+                                    <div class="hspace" style="width:5%"></div>
+                                    <div class=marketsettings style="width:90%">
+                                        <div style="width:30%;">
+                                            <p style="padding-left: 15px; padding-top:5px; color:rgb(195, 168, 152)" id="pagecounter">1/1</p>
+                                        </div>
+                                        <div style="width:40%; display:block">
+                                            <div class="vspace" style="height:30%"></div>
+                                            <div style="height:40%; display:flex"> 
+                                                <button onClick=prevpage()><</button>      
+                                                <div class="hspace" style="width:10%"></div>
+                                                <button onClick=nextpage()>></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="hspace" style="width:2.5%"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
