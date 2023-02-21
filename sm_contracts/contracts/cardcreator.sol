@@ -48,6 +48,10 @@ abstract contract CardNFT is ERC721 {
 
 
     card[] public cards;
+
+    function totalCards() public view returns(uint){
+        return cards.length;
+    }
     
     uint private nonce = 0;
     uint private id = 0;
