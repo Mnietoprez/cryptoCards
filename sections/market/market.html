@@ -77,44 +77,44 @@
                                     <div class="hspace" style="width:2.5%"></div>
                                     <div style="height:100%; width:95%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px; display:block">
                                         <div style="height:50%;; border-radius: 10px; display:flex">
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot1" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot2" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot3" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot4" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot5" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                         </div>
                                         <div style="height:50%;; border-radius: 10px; display:flex">
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot6" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot7" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot8" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot9" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                             <div class="hspace" style="width:1%"></div>
-                                            <div style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                                            <div id= "slot10" style="width:19.2%; height:99%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
                                         
                                             </div>
                                         </div>
@@ -136,6 +136,18 @@
                                                 <button onClick=nextpage()>></button>
                                             </div>
                                         </div>
+                                        <div class="hspace" style="width:7.5%"></div>
+                                        <div style="width:15%; display:block">
+                                            <div class="vspace" style="height:30%"></div>
+                                            <select style="width:100%; height:40%">
+                                                <option value="0">Sort by id</option>
+                                                <option value="1">Only affordable</option>
+                                                <option value="2">Only legendaries</option>
+                                                <option value="3">Only rare</option>
+                                                <option value="4">Only uncommon</option>
+                                                <option value="5">Only common</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="hspace" style="width:2.5%"></div>
                                 </div>
@@ -145,11 +157,6 @@
                         <div class="carddisplay">
                             <div class="hspace" style="width:10%;"></div>
                             <div class="thecardcontainer">
-                                <div class="vspace" style="height:25px"></div>
-                                <div style="position: relative; text-align: none;">
-                                    <input type="text" id="searchid" placeholder="Search by card ID">
-                                    <button style="position: absolute; right: 0; cursor:pointer" onclick=searchCard()>🔎</button>
-                                </div>
                                 <div class="vspace" style="height:25px"></div>
                                 <div class="thecard">
                                     <div class="vspace" style="height:2.5%"></div>
@@ -238,6 +245,11 @@
                                         </div>
                                         <div class="hspace" style="width:5%;"></div>
                                     </div>
+                                </div>
+                                <div class="vspace" style="height:25px"></div>
+                                <div style="position: relative; text-align: none;">
+                                    <input type="text" id="buyid" placeholder="" readonly>
+                                    <button style="position: absolute; right: 0; cursor:pointer" onclick=buyCard()>Buy</button>
                                 </div>
                             </div>
                             <div class="hspace" style="width:10%;"></div>

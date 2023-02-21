@@ -119,7 +119,10 @@ async function loadWeb3() {
 }
 
 function digitFormatter(n){
-    toEth = n/10e18;
+    if (n==0){
+        return 0;
+    }else{
+        toEth = n/10e18;
     order = Math.floor(Math.log10(Math.abs(toEth))) + 1;
     if (order<8){
         parsed = (Number.parseFloat(toEth).toFixed(8-order).replace(".", ""))/10**(8-order);
@@ -127,6 +130,8 @@ function digitFormatter(n){
         parsed = Math.floor(toEth);
     }
     return parsed;
+    }
+    
 }
 
 async function getCurrentAccount() {
@@ -210,17 +215,19 @@ async function selectCard(id){
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
     document.getElementById("displayId").innerHTML = `Id: ${id}`;
     document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10]}`;
+
     if (dataAsArray[8]) {
         salevalue = await window.contract.methods.viewPrice(id).call();
         document.getElementById("sellValue").value = "";
-        document.getElementById("sellValue").placeholder = `Card already for sale (${salevalue} CCT) `;
+        document.getElementById("sellValue").value = `Card already for sale (${salevalue} CCT) `;
         document.getElementById("sellValue").style.width = "100%";
         document.getElementById("sellValue").readOnly = true;
         document.getElementById("sellButton").style.opacity = "0%";
         document.getElementById("sellButton").style.cursor = "default"
         document.getElementById("sellButton").onclick = function() { uselessfunction() };;
     } else {
-        document.getElementById("sellValue").placeholder = `CCT amount (in 10e-18)`;
+        document.getElementById("sellValue").value = "";
+        document.getElementById("sellValue").placeholder = `CCT amount`;
         document.getElementById("sellButton").onclick = function() { createOffer() };
         document.getElementById("sellValue").style.width = "60%";
         document.getElementById("sellValue").readOnly = false;
@@ -251,7 +258,7 @@ async function changeName(){
 }
 
 async function createOffer(){
-    amount = document.getElementById("sellValue").value;
+    var amount = BigInt(document.getElementById("sellValue").value * 1000000000000000000);
     if(amount == undefined || amount<=0){
         document.getElementById("sellstatus").innerHTML = "Please enter a valid quantity"
     } else {

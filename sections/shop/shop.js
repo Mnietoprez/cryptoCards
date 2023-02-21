@@ -13,7 +13,10 @@ window.onload = async function(){
 }
 
 function digitFormatter(n){
-    toEth = n/10e18;
+    if (n==0){
+        return 0;
+    }else{
+        toEth = n/10e18;
     order = Math.floor(Math.log10(Math.abs(toEth))) + 1;
     if (order<8){
         parsed = (Number.parseFloat(toEth).toFixed(8-order).replace(".", ""))/10**(8-order);
@@ -21,6 +24,8 @@ function digitFormatter(n){
         parsed = Math.floor(toEth);
     }
     return parsed;
+    }
+    
 }
 
 async function loadWeb3() {

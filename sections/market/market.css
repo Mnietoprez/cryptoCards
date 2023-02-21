@@ -286,6 +286,14 @@ body{
     height:25px;
 }
 
+.marketsettings select{
+    background-color: rgb(195, 168, 152);
+    font-size: 15px;
+    font-family: arial;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 .marketsettings button:hover {
     transition: 0.15s;
     transform:scale(1.1, 1.2);

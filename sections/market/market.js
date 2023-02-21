@@ -2,6 +2,9 @@ var tokenAddress = "0xf147035a3FF36EE318C52D836bb9165a71210212";
 var contractAddress = "0xA2b84EBe6705b4c9fF6Db18689cF2b46D53c169F";
 var activeid;
 var account;
+var marketids =[];
+var page = 1;
+
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
@@ -11,22 +14,116 @@ window.onload = async function(){
     document.getElementById("cardToken").innerHTML=digitFormatter(await window.token.methods.balanceOf(account).call());
     document.getElementById("rust").innerHTML=await window.contract.methods.rustBalanceOf(account).call();
 
-    ids = await window.contract.methods.cardsOfAdress(account).call();
-    pages = Math.ceil(ids.length/9);
+    ids = await window.contract.methods.totalCards().call();
+    for (i=0;i<ids;i++){
+        var rawData = await window.contract.methods.cards(i).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        if (dataAsArray[8]==true){
+            marketids.push(i);
+        }
+
+    }
+
+    pages = Math.ceil(marketids.length/10);
     document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
-    if (ids.length<10){
-        loadSlots(0,ids.length);
-        n2 = ids.length-1;
+    if (marketids.length<11){
+        loadSlots(0,marketids.length);
+        n2 = marketids.length-1;
     } else{
-        loadSlots(0,8);
+        loadSlots(0,10);
         n2 = 8;
     }
 
-    selectCard(ids[0]);
+    //selectCard(ids[0]);
+}
+var n1=0;
+var n2;
+
+async function loadSlots(n1, n2){
+    var sl = 1;
+    for (let i = n1; i < n2; i++) {
+        var slot = document.getElementById(`slot${sl}`);
+        var text = document.getElementById(`text${sl}`);
+        sl++;
+        var rawData = await window.contract.methods.cards(marketids[i]).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        var totalpower = dataAsArray[4];
+
+        if(totalpower<=2500){
+            slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
+        } else {
+            if(totalpower<=5000){
+                slot.style.backgroundColor = "rgba(26, 172, 0, 0.2)";
+            } else {
+                if(totalpower<=7500){
+                    slot.style.backgroundColor = "rgba(1, 73, 216, 0.2)";
+                } else{
+                    slot.style.backgroundColor = "rgba(152, 0, 172, 0.2)";
+                }
+            }
+        }
+        //text.innerHTML = `|&nbspId: ${ids[i]}&nbsp|&nbsp&nbsp&nbsp Name: ${dataAsArray[23]}`;
+        slot.style.cursor = "pointer";
+        slot.onclick = function() { selectCard(marketids[i]); };
+    }
+    if (lastpage){
+        for (let i = rest; i <= 9 ; i++) { 
+            var slot = document.getElementById(`slot${i}`);
+            var text = document.getElementById(`text${i}`);
+            text.innerHTML = "";
+            slot.style.cursor = "default";
+            slot.style.backgroundColor = "rgba(0,0,0,0.05)"
+            slot.onclick = function() {};
+        }
+    }
+}
+
+async function prevpage(){
+    if(n1==0){
+        console.log("There doesn't exist a previous page")
+    } else {
+        if(lastpage){
+            n1=n1-9;
+            n2=n2-rest;
+            lastpage = false;
+        } else {
+            n1=n1-9;
+            n2=n2-9;
+        }  
+        page--; 
+        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`;  
+        await loadSlots(n1,n2);    
+    }
+}
+
+var rest;
+var lastpage;
+
+async function nextpage(){
+    if(n2==marketids.length-1){
+        console.log("There doesn't exist a next page")
+    } else {
+        n1=n1+9;
+        
+        if (marketids.length-1 > n2+9){
+            n2=n2+9;
+        } else{
+            rest = marketids.length%9;
+            n2 = n2 + rest;
+            lastpage = true;
+        }   
+        page++;
+        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`; 
+        await loadSlots(n1,n2); 
+
+    }
 }
 
 function digitFormatter(n){
-    toEth = n/10e18;
+    if (n==0){
+        return 0;
+    }else{
+        toEth = n/10e18;
     order = Math.floor(Math.log10(Math.abs(toEth))) + 1;
     if (order<8){
         parsed = (Number.parseFloat(toEth).toFixed(8-order).replace(".", ""))/10**(8-order);
@@ -34,6 +131,8 @@ function digitFormatter(n){
         parsed = Math.floor(toEth);
     }
     return parsed;
+    }
+    
 }
 
 async function loadWeb3() {
@@ -141,13 +240,17 @@ function confirmPurchase(n){
     
     
 }
-function searchCard(){
-    selectCard(document.getElementById("searchid").value)
+
+async function buyCard(){
+    await window.contract.methods.buyCard(activeid).send({ from: account });
 }
 
 async function selectCard(id){
-    const rawData = await window.contract.methods.cards(id).call();
-    const dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+    var rawData = await window.contract.methods.cards(id).call();
+    var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+    var salevalue = await window.contract.methods.viewPrice(id).call();
+
+    document.getElementById("buyid").value = `${digitFormatter(salevalue)} CCT `;
     document.getElementById("cardtotalpowerval").innerHTML = dataAsArray[4];
 
     activeid = id;
