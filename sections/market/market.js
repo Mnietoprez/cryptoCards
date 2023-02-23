@@ -24,6 +24,7 @@ window.onload = async function(){
 
     }
 
+    marketids = marketids.reverse();
     pages = Math.ceil(marketids.length/10);
     document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
     if (marketids.length<11){
@@ -43,11 +44,13 @@ async function loadSlots(n1, n2){
     var sl = 1;
     for (let i = n1; i < n2; i++) {
         var slot = document.getElementById(`slot${sl}`);
-        var text = document.getElementById(`text${sl}`);
+        var price = document.getElementById(`price${sl}`);
+        var tp = document.getElementById(`tp${sl}`);
         sl++;
         var rawData = await window.contract.methods.cards(marketids[i]).call();
         var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
         var totalpower = dataAsArray[4];
+        var salevalue = await window.contract.methods.viewPrice(marketids[i]).call();
 
         if(totalpower<=2500){
             slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
@@ -62,7 +65,8 @@ async function loadSlots(n1, n2){
                 }
             }
         }
-        //text.innerHTML = `|&nbspId: ${ids[i]}&nbsp|&nbsp&nbsp&nbsp Name: ${dataAsArray[23]}`;
+        price.innerHTML = `Price: ${salevalue/10e17} CCT`;
+        tp.innerHTML = `TP: ${totalpower}`;
         slot.style.cursor = "pointer";
         slot.onclick = function() { selectCard(marketids[i]); };
     }
@@ -123,7 +127,7 @@ function digitFormatter(n){
     if (n==0){
         return 0;
     }else{
-        toEth = n/10e18;
+        toEth = n/10e17;
     order = Math.floor(Math.log10(Math.abs(toEth))) + 1;
     if (order<8){
         parsed = (Number.parseFloat(toEth).toFixed(8-order).replace(".", ""))/10**(8-order);
@@ -250,7 +254,7 @@ async function selectCard(id){
     var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
     var salevalue = await window.contract.methods.viewPrice(id).call();
 
-    document.getElementById("buyid").value = `${digitFormatter(salevalue)} CCT `;
+    document.getElementById("buyid").value = `${salevalue/10e17} CCT `;
     document.getElementById("cardtotalpowerval").innerHTML = dataAsArray[4];
 
     activeid = id;

@@ -16,7 +16,7 @@ function digitFormatter(n){
     if (n==0){
         return 0;
     }else{
-        toEth = n/10e18;
+        toEth = n/10e17;
     order = Math.floor(Math.log10(Math.abs(toEth))) + 1;
     if (order<8){
         parsed = (Number.parseFloat(toEth).toFixed(8-order).replace(".", ""))/10**(8-order);

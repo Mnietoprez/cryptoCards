@@ -122,7 +122,7 @@ function digitFormatter(n){
     if (n==0){
         return 0;
     }else{
-        toEth = n/10e18;
+        toEth = n/10e17;
     order = Math.floor(Math.log10(Math.abs(toEth))) + 1;
     if (order<8){
         parsed = (Number.parseFloat(toEth).toFixed(8-order).replace(".", ""))/10**(8-order);
@@ -219,7 +219,7 @@ async function selectCard(id){
     if (dataAsArray[8]) {
         salevalue = await window.contract.methods.viewPrice(id).call();
         document.getElementById("sellValue").value = "";
-        document.getElementById("sellValue").value = `Card already for sale (${salevalue} CCT) `;
+        document.getElementById("sellValue").value = `Card already for sale (${salevalue/10e17} CCT) `;
         document.getElementById("sellValue").style.width = "100%";
         document.getElementById("sellValue").readOnly = true;
         document.getElementById("sellButton").style.opacity = "0%";
