@@ -77,6 +77,11 @@
                                     <div class="hspace" style="width:2.5%"></div>
                                     <div style="height:100%; width:95%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px; display:block">
                                         <div style="height:50%;; border-radius: 10px; display:flex">
+                                            <div id= "slot0" class="slot">
+                                                <p id="tp0"></p>
+                                                <p style="font-size: 13px" id= "price0"></p>
+                                            </div>
+                                            <div class="hspace" style="width:1%"></div>
                                             <div id= "slot1" class="slot">
                                                 <p id="tp1"></p>
                                                 <p style="font-size: 13px" id= "price1"></p>
@@ -96,13 +101,13 @@
                                                 <p id="tp4"></p>
                                                 <p style="font-size: 13px" id= "price4"></p>
                                             </div>
-                                            <div class="hspace" style="width:1%"></div>
+                                        </div>
+                                        <div style="height:50%;; border-radius: 10px; display:flex">
                                             <div id= "slot5" class="slot">
                                                 <p id="tp5"></p>
                                                 <p style="font-size: 13px" id= "price5"></p>
                                             </div>
-                                        </div>
-                                        <div style="height:50%;; border-radius: 10px; display:flex">
+                                            <div class="hspace" style="width:1%"></div>
                                             <div id= "slot6" class="slot">
                                                 <p id="tp6"></p>
                                                 <p style="font-size: 13px" id= "price6"></p>
@@ -121,11 +126,6 @@
                                             <div id= "slot9" class="slot">
                                                 <p id="tp9"></p>
                                                 <p style="font-size: 13px" id= "price9"></p>
-                                            </div>
-                                            <div class="hspace" style="width:1%"></div>
-                                            <div id= "slot10" class="slot">
-                                                <p id="tp10"></p>
-                                                <p style="font-size: 13px" id= "price10"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -278,8 +278,31 @@
                             <div style="display:block; height:80%;">
                                 <div style="display:flex; height:80%">
                                     <div class="hspace" style="width:5%"></div>
-                                    <div style="height:100%; width:90%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px;">
-
+                                    <div style="height:100%; width:90%; background-color: rgba(0, 0, 0, 0.1); border-radius: 10px; display:block">
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed0">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text0"><span id="click0" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed1">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text1"><span id="click1" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed2">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text2"><span id="click2" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed3">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text3"><span id="click3" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed4">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text4"><span id="click4" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed5">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text5"><span id="click5" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; " id="listed6">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text6"><span id="click6" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
+                                        <div style="height:21px; width:100%; background-color: rgba(0,0,0,0.2); text-align:left; "id="listed7">
+                                            <p style="color: rgb(207, 194, 186); padding-left: 20px;" id="text7"><span id="click7" style="text-decoration: underline; font-size:11px; cursor: pointer;">[DELETE]</span></p>
+                                        </div>
                                     </div>
                                     <div class="hspace" style="width:2.5%"></div>
                                 </div>
@@ -288,14 +311,14 @@
                                     <div class="hspace" style="width:5%"></div>
                                     <div class=marketsettings style="width:90%">
                                         <div style="width:30%;">
-                                            <p style="padding-left: 15px; padding-top:5px; color:rgb(195, 168, 152)" id="pagecounter">1/1</p>
+                                            <p style="padding-left: 15px; padding-top:5px; color:rgb(195, 168, 152)" id="listedcounter">1/1</p>
                                         </div>
                                         <div style="width:40%; display:block">
                                             <div class="vspace" style="height:30%"></div>
                                             <div style="height:40%; display:flex"> 
-                                                <button onClick=prevpage()><</button>      
+                                                <button onClick=prevpagelisted()><</button>      
                                                 <div class="hspace" style="width:10%"></div>
-                                                <button onClick=nextpage()>></button>
+                                                <button onClick=nextpagelisted()>></button>
                                             </div>
                                         </div>
                                     </div>

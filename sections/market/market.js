@@ -3,7 +3,22 @@ var contractAddress = "0xA2b84EBe6705b4c9fF6Db18689cF2b46D53c169F";
 var activeid;
 var account;
 var marketids =[];
+var listedids =[];
 var page = 1;
+var listedpage = 1;
+
+var n1=0;
+var n2;
+
+var nl1=0;
+var nl2;
+
+var rest;
+var lastpage;
+
+var restl;
+var lastpagel;
+
 
 window.onload = async function(){
     await loadWeb3();
@@ -15,34 +30,53 @@ window.onload = async function(){
     document.getElementById("rust").innerHTML=await window.contract.methods.rustBalanceOf(account).call();
 
     ids = await window.contract.methods.totalCards().call();
+    myids = await window.contract.methods.cardsOfAdress(account).call();
+
     for (i=0;i<ids;i++){
         var rawData = await window.contract.methods.cards(i).call();
         var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
         if (dataAsArray[8]==true){
             marketids.push(i);
         }
+    }
+    marketids = marketids.reverse();
 
+
+    for (i=0;i<myids.length;i++){
+        var rawData = await window.contract.methods.cards(myids[i]).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        if (dataAsArray[8]==true){
+            listedids.push(myids[i]);
+        }
     }
 
-    marketids = marketids.reverse();
     pages = Math.ceil(marketids.length/10);
+    listedpages = Math.ceil(listedids.length/8);
+
     document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
+    document.getElementById("listedcounter").innerHTML = `1/${listedpages}`;
+
     if (marketids.length<11){
         loadSlots(0,marketids.length);
         n2 = marketids.length-1;
     } else{
-        loadSlots(0,10);
-        n2 = 8;
+        loadSlots(0,9);
+        n2 = 9;
+    }
+    
+    if (listedids.length<9){
+        loadListed(0,listedids.length);
+        nl2 = listedids.length-1;
+    } else{
+        loadListed(0,7);
+        nl2 = 7;
     }
 
-    //selectCard(ids[0]);
 }
-var n1=0;
-var n2;
 
 async function loadSlots(n1, n2){
-    var sl = 1;
-    for (let i = n1; i < n2; i++) {
+    var sl = 0;
+    for (let i = n1; i < n2+1; i++) {
         var slot = document.getElementById(`slot${sl}`);
         var price = document.getElementById(`price${sl}`);
         var tp = document.getElementById(`tp${sl}`);
@@ -71,10 +105,12 @@ async function loadSlots(n1, n2){
         slot.onclick = function() { selectCard(marketids[i]); };
     }
     if (lastpage){
-        for (let i = rest; i <= 9 ; i++) { 
+        for (let i = rest; i <= 10 ; i++) { 
             var slot = document.getElementById(`slot${i}`);
-            var text = document.getElementById(`text${i}`);
-            text.innerHTML = "";
+            var price = document.getElementById(`price${i}`);
+            var tp = document.getElementById(`tp${i}`);
+            price.innerHTML = "";
+            tp.innerHTML = "";
             slot.style.cursor = "default";
             slot.style.backgroundColor = "rgba(0,0,0,0.05)"
             slot.onclick = function() {};
@@ -87,12 +123,12 @@ async function prevpage(){
         console.log("There doesn't exist a previous page")
     } else {
         if(lastpage){
-            n1=n1-9;
+            n1=n1-10;
             n2=n2-rest;
             lastpage = false;
         } else {
-            n1=n1-9;
-            n2=n2-9;
+            n1=n1-10;
+            n2=n2-10;
         }  
         page--; 
         document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`;  
@@ -100,25 +136,110 @@ async function prevpage(){
     }
 }
 
-var rest;
-var lastpage;
+
 
 async function nextpage(){
     if(n2==marketids.length-1){
         console.log("There doesn't exist a next page")
     } else {
-        n1=n1+9;
+        n1=n1+10;
         
-        if (marketids.length-1 > n2+9){
-            n2=n2+9;
+        if (marketids.length-1 > n2+10){
+            n2=n2+10;
         } else{
-            rest = marketids.length%9;
+            rest = marketids.length%10;
             n2 = n2 + rest;
             lastpage = true;
         }   
         page++;
         document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`; 
         await loadSlots(n1,n2); 
+
+    }
+}
+
+async function loadListed(nl1, nl2){
+    var sl = 0;
+    for (let i = nl1; i < nl2+1; i++) {
+        var text = document.getElementById(`text${sl}`);
+        var listslot = document.getElementById(`listed${sl}`);
+        var click = document.getElementById(`click${sl}`);
+        sl++;
+        var rawData = await window.contract.methods.cards(listedids[i]).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        var totalpower = dataAsArray[4];
+
+        if(totalpower<=2500){
+            listslot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
+        } else {
+            if(totalpower<=5000){
+                listslot.style.backgroundColor = "rgba(26, 172, 0, 0.2)";
+            } else {
+                if(totalpower<=7500){
+                    listslot.style.backgroundColor = "rgba(1, 73, 216, 0.2)";
+                } else{
+                    listslot.style.backgroundColor = "rgba(152, 0, 172, 0.2)";
+                }
+            }
+        }
+        text.innerHTML = `Id: ${listedids[i]}`;
+        click.innerHTML = "[DELETE]";
+        click.onclick = function() { deleteList(marketids[i]); };
+        
+    }
+    if (lastpagel){
+        for (let i = restl; i <= 8 ; i++) { 
+            var text = document.getElementById(`text${i}`);
+            var listslot = document.getElementById(`listed${i}`);
+            var click = document.getElementById(`click${i}`);
+            listslot.style.backgroundColor = "rgba(0,0,0,0.05)"
+            text.innerHTML = "";
+            click.innerHTML = "";
+            click.onclick = function() {};
+        }
+    }
+}
+
+async function deleteList(id){
+
+}
+
+async function prevpagelisted(){
+    if(nl1==0){
+        console.log("There doesn't exist a previous page")
+    } else {
+        if(lastpagel){
+            nl1=nl1-8;
+            nl2=nl2-restl;
+            lastpagel = false;
+        } else {
+            nl1=nl1-8;
+            nl2=nl2-8;
+        }  
+        listedpage--; 
+        document.getElementById("listedcounter").innerHTML = `Page ${listedpage} of  ${listedpages}`;  
+        await loadListed(nl1,nl2);    
+    }
+}
+
+
+
+async function nextpagelisted(){
+    if(nl2==listedids.length-1){
+        console.log("There doesn't exist a next page")
+    } else {
+        nl1=nl1+8;
+        
+        if (listedids.length-1 > nl2+8){
+            nl2=nl2+8;
+        } else{
+            restl = listedids.length%8;
+            nl2 = nl2 + restl;
+            lastpagel = true;
+        }   
+        listedpage++;
+        document.getElementById("listedcounter").innerHTML = `Page ${listedpage} of  ${listedpages}`; 
+        await loadListed(nl1,nl2); 
 
     }
 }

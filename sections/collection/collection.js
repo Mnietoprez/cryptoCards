@@ -19,6 +19,7 @@ window.onload = async function(){
     ids = await window.contract.methods.cardsOfAdress(account).call();
     pages = Math.ceil(ids.length/9);
     document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
+
     if (ids.length<10){
         loadSlots(0,ids.length);
         n2 = ids.length-1;
@@ -246,6 +247,12 @@ async function selectCard(id){
 function uselessfunction(){
     console.log("nothing");
 }
+
+async function sendTo(){
+    var to = document.getElementById("newowner").value;
+    await window.contract.methods.safeTransferFrom(account, to, activeid ).send({ from: account });
+}
+
 async function changeName(){
     _newname = document.getElementById("newname").value;
     if (_newname.length < 21){
