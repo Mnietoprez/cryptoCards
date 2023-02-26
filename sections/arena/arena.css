@@ -13,7 +13,7 @@ body{
 
 .section {
     background-color: rgb(45, 24, 0) ;
-    width:15%;
+    width:14%;
     height:100%;
     border-radius: 10px; 
     text-align: center;
@@ -26,10 +26,28 @@ body{
     color: rgb(207, 194, 186);
 }
 
+.section h1 {
+    font-size: 15px;
+    text-decoration: none;
+    color: rgb(207, 194, 186);
+}
+
+.tokenimg{
+    width:3%;
+    height:100%;
+    padding-top:5px ;
+}
+
+.tokenimg img{
+    width:80%;
+    height:80%;
+}
+
 .maincontainer{
     width:100%;
     height: 600px;
-    display:flex;
+    display:block;
+    overflow: hidden;
 }
 
 .content{
@@ -38,7 +56,15 @@ body{
     height: 100%;
     border-radius: 10px;
     display:flex;
+    text-align: center;
 }
+
+.content h1{
+    color: rgb(207, 194, 186);
+    background-color: rgba(0,0,0,0.2);
+    font-size: 25px;
+}
+
 
 .innercontent{
     width:95%;
@@ -50,154 +76,22 @@ body{
 
 .titlecontainer{
     width:100%;
-    height: 65px;
+    height: 10%;
     display:flex;
 }
 
 .title{
     width:80%;
     background-color:  rgb(45, 24, 0);
-    height: 65px;
+    height: 100%;
     border-radius: 10px;
     text-align: center;
 }
 
 .title h1{
-    font-size: 35px;
+    font-size: 25px;
     color: rgb(207, 194, 186);
-}
-
-.cardcontainer{
-    background-color: rgba(0,0,0,0.1);
-    width:100%;
-    height: 400px;
-    border-radius: 10px;
-    display:block;
-}
-
-.manager{
-    background-color: rgba(0,0,0,0.1);
-    width:100%;
-    height: 490px;
-    border-radius: 10px;
-    display:flex;
-}
-
-.lhalfmanager{
-    width:50%;
-    height: 400px;
-    border-radius: 10px;
-    display:flex;
-}
-
-.rhalfmanager{
-    width:50%;
-    height: 400px;
-    border-radius: 10px;
-    display:block;
-    text-align: center;
-}
-
-.rhalfmanager h1{
-    color: rgb(19, 6, 0);
-}
-
-.thecardcontainer{
-    width:80%;
-    height: 100%;
-    display:block;
-    text-align: center;
-}
-
-.thecardcontainer p{
-    color: rgb(19, 6, 0);
-}
-
-.thecard{
-    background-color: rgb(29, 28, 28);
-    width:100%;
-    height: 400px;
-    border-radius: 10px;
-    display:block;
-}
-
-.insidethecardtitle h1{
-    color:white;
-    font-size: 15px;
-}
-
-.thecardtitle{
-    width:100%;
-    height: 7.5%;
-    display:flex;
-}
-
-.insidethecardtitle{
-    background-color: rgba(0, 0, 0, 0.4);
-    width:80%;
-    height: 100%;
-    text-align:center;
-    border-radius: 5px;
-}
-
-.thecardimage{
-    width:100%;
-    height: 40%;
-    display:flex;
-}
-
-.insidethecardimage{
-    background-color: rgba(0, 0, 0, 0.4);
-    width:90%;
-    height: 100%;
-    border-radius: 5px;
-}
-
-.thecardstats{
-    width:100%;
-    height: 40%;
-    display:flex;
-}
-
-.insidethecardstats{
-    display:block;
-    width:90%;
-    height: 100%;
-}
-
-.statline{
-    display:flex;
-    width:100%;
-    height: 20px;
-}
-
-.statline p{
-    color:rgb(255, 255, 255);
-    font-size: 30;
-}
-
-.statlinetext{
-    width:50%;
-    height: 100%;
-}
-
-.statlineval{
-    width:50%;
-    height: 100%;
-}
-
-.selectedcard{
-    background-color: rgba(0,0,0,0.1);
-    width:100%;
-    height: 400px;
-    border-radius: 10px;
-    display:block;
-}
-
-.row{
-    width:100%;
-    height: 400px;
-    display:block;
+    background-color: rgba(0,0,0,0);
 }
 
 .hspace{
@@ -211,4 +105,65 @@ body{
 .section:hover {
     transition: 0.15s;
     background-color:rgb(50, 34, 15);
+}
+
+.modeimage{
+    text-align: center;
+}
+
+.modeimage img{
+    width:20%;
+    height:auto;
+}
+
+.arena{
+    width:100%;
+    height:600px;
+    background-color: rgb(98, 82, 67);
+}
+
+.slot{
+    width:19.2%; 
+    height:99%; 
+    background-color: rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    text-align: center; 
+    border:2px solid black;
+    overflow: hidden;
+}
+
+.slot p {
+    color:white;
+    font-size: 20px;
+    max-width: 200px;
+}
+
+.content button{
+    width:5%;
+    background-color: rgb(195, 168, 152);
+    font-size: 20px;
+    font-family: arial;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.content button:hover {
+    transition: 0.15s;
+    background-color:rgb(122, 107, 98);
+}
+
+.playbutton button{
+    width:25%;
+    height:100%;
+    background-color: rgb(195, 168, 152);
+    font-size: 18px;
+    font-family: arial;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.playbutton button:hover {
+    transition: 0.15s;
+    transform:scale(1.1, 1.2);
+    background-color:rgb(122, 107, 98);
 }

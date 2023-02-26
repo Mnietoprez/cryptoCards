@@ -59,7 +59,7 @@ async function loadSlots(n1, n2){
         slot.onclick = function() { selectCard(ids[i]); };
     }
     if (lastpage){
-        for (let i = rest; i <= 9 ; i++) { 
+        for (let i = rest; i <= 8 ; i++) { 
             var slot = document.getElementById(`slot${i}`);
             var text = document.getElementById(`text${i}`);
             text.innerHTML = "";
@@ -141,22 +141,70 @@ async function getCurrentAccount() {
 }
 
 var images = {
-    0: "../../images/commonmagma.jpg",
-    10: "../../images/commonice.jpg",
-    20: "../../images/commonpoison.jpg",
-    30: "../../images/commonelectric.jpg",
-    100: "../../images/uncommonmagma.jpg",
-    110: "../../images/uncommonice.jpg",
-    120: "../../images/uncommonpoison.jpg",
-    130: "../../images/uncommonelectric.jpg",
-    200: "../../images/raremagma.jpg",
-    210: "../../images/rareice.jpg",
-    220: "../../images/rarepoison.jpg",
-    230: "../../images/rareelectric.jpg",
-    300: "../../images/legendarymagma.jpg",
-    310: "../../images/legendaryice.jpg",
-    320: "../../images/legendarypoison.jpg",
-    330: "../../images/legendaryelectric.jpg",
+    0: "../../cardimages/commonmagmamelee.png",
+    1: "../../cardimages/commonmagmashield.png",
+    2: "../../cardimages/commonmagmamagic.png",
+    3: "../../cardimages/commonmagmarange.png",
+    10: "../../cardimages/commonicemelee.png",
+    11: "../../cardimages/commoniceshield.png",
+    12: "../../cardimages/commonicemagic.png",
+    13: "../../cardimages/commonicerange.png",
+    20: "../../cardimages/commonpoisonmelee.png",
+    21: "../../cardimages/commonpoisonshield.png",
+    22: "../../cardimages/commonpoisonmagic.png",
+    23: "../../cardimages/commonpoisonrange.png",
+    30: "../../cardimages/commonelectricmelee.png",
+    31: "../../cardimages/commonelectricshield.png",
+    32: "../../cardimages/commonelectricmagic.png",
+    33: "../../cardimages/commonelectricrange.png",
+    100: "../../cardimages/uncommonmagmamelee.png",
+    101: "../../cardimages/uncommonmagmashield.png",
+    102: "../../cardimages/uncommonmagmamagic.png",
+    103: "../../cardimages/uncommonmagmarange.png",
+    110: "../../cardimages/uncommonicemelee.png",
+    111: "../../cardimages/uncommoniceshield.png",
+    112: "../../cardimages/uncommonicemagic.png",
+    113: "../../cardimages/uncommonicerange.png",
+    120: "../../cardimages/uncommonpoisonmelee.png",
+    121: "../../cardimages/uncommonpoisonshield.png",
+    122: "../../cardimages/uncommonpoisonmagic.png",
+    123: "../../cardimages/uncommonpoisonrange.png",
+    130: "../../cardimages/uncommonelectricmelee.png",
+    131: "../../cardimages/uncommonelectricshield.png",
+    132: "../../cardimages/uncommonelectricmagic.png",
+    133: "../../cardimages/uncommonelectricrange.png",
+    200: "../../cardimages/raremagmamelee.png",
+    201: "../../cardimages/raremagmashield.png",
+    202: "../../cardimages/raremagmamagic.png",
+    203: "../../cardimages/raremagmarange.png",
+    210: "../../cardimages/rareicemelee.png",
+    211: "../../cardimages/rareiceshield.png",
+    212: "../../cardimages/rareicemagic.png",
+    213: "../../cardimages/rareicerange.png",
+    220: "../../cardimages/rarepoisonmelee.png",
+    221: "../../cardimages/rarepoisonshield.png",
+    222: "../../cardimages/rarepoisonmagic.png",
+    223: "../../cardimages/rarepoisonrange.png",
+    230: "../../cardimages/rareelectricmelee.png",
+    231: "../../cardimages/rareelectricshield.png",
+    232: "../../cardimages/rareelectricmagic.png",
+    233: "../../cardimages/rareelectricrange.png",
+    300: "../../cardimages/legendarymagmamelee.png",
+    301: "../../cardimages/legendarymagmashield.png",
+    302: "../../cardimages/legendarymagmamagic.png",
+    303: "../../cardimages/legendarymagmarange.png",
+    310: "../../cardimages/legendaryicemelee.png",
+    311: "../../cardimages/legendaryiceshield.png",
+    312: "../../cardimages/legendaryicemagic.png",
+    313: "../../cardimages/legendaryicerange.png",
+    320: "../../cardimages/legendarypoisonmelee.png",
+    321: "../../cardimages/legendarypoisonshield.png",
+    322: "../../cardimages/legendarypoisonmagic.png",
+    323: "../../cardimages/legendarypoisonrange.png",
+    330: "../../cardimages/legendaryelectricmelee.png",
+    331: "../../cardimages/legendaryelectricshield.png",
+    332: "../../cardimages/legendaryelectricmagic.png",
+    333: "../../cardimages/legendaryelectricrange.png",
 }
 
 
@@ -215,7 +263,10 @@ async function selectCard(id){
     document.getElementById("cardrangeval").innerHTML = dataAsArray[3];
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
     document.getElementById("displayId").innerHTML = `Id: ${id}`;
-    document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10]}`;
+
+    type= determineType(dataAsArray[0],dataAsArray[1],dataAsArray[2],dataAsArray[3]);
+    document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10+type]}`;
+    console.log(numpower*100+dataAsArray[5]*10+type);
 
     if (dataAsArray[8]) {
         salevalue = await window.contract.methods.viewPrice(id).call();
@@ -242,6 +293,18 @@ async function selectCard(id){
     } else {
         document.getElementById("upgradestatus").innerHTML = "Win a pvp battle first";
     }
+}
+
+function determineType(melee, shield, magic, range){
+    if (melee >= shield && melee >=magic && melee >=range) {
+        return 0;
+      } else if (shield >= melee && shield >= magic && shield >= range) {
+        return 1;
+      } else if (magic >= melee && magic >= shield && magic >= range) {
+        return 2;
+      } else if (range >= melee && range >= shield && range >= magic) {
+        return 3;
+      }
 }
 
 function uselessfunction(){

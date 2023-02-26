@@ -8,60 +8,180 @@
     <body>
         <script src = arena.js></script>
         <div class="titlebar">
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../collection/collection.html">COLLECTION</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="#">ARENA</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../market/market.html">MARKET</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
             <div class="section">
                 <a href="../shop/shop.html">SHOP</a>
             </div>
-            <div class="hspace" style="width:8%;"></div>
+            <div class="hspace" style="width:3%;"></div>
+            <div class="tokenimg">
+                <img src="../../images/token.png">
+            </div>
+            <div class="section" style="width:6%;">
+                <h1 id="cardToken"></h1>
+            </div>
+            <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
+                <h1>CCT</h1>
+            </div>
+            <div class="hspace" style="width:2%;"></div>
+            <div class="tokenimg">
+                <img src="../../images/rust.png">
+            </div>
+            <div class="section" style="width:6%">
+                <h1 id="rust"></h1>
+            </div>
+            <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
+                <h1>RST</h1>
+            </div>
+            <div class="hspace" style="width:3%;"></div>
         </div>
         <div class="vspace" style="height:60px"></div>
         <div class="maincontainer">
-            <div class="hspace" style="width:2%;"></div>
-            <div class="content">
-                <div class="hspace" style="width:2.5%;"></div>
-                <div class="innercontent">
-                    <div class="vspace" style="height:15px"></div>
-                    <div class="titlecontainer">
-                        <div class="hspace" style="width:10%;"></div>
-                        <div class="title">
-                            <h1>PVE</h1>
+            <div id="modeselector" style="width:100%; height:600px; display: flex">
+                <div class="hspace" style="width:2%;"></div>
+                <div class="content">
+                    <div class="hspace" style="width:2.5%;"></div>
+                    <div class="innercontent">
+                        <div class="vspace" style="height:2.5%"></div>
+                        <div class="titlecontainer">
+                            <div class="hspace" style="width:10%;"></div>
+                            <div class="title">
+                                <h1>PVE</h1>
+                            </div>
+                            <div class="hspace" style="width:10%;"></div>
                         </div>
-                        <div class="hspace" style="width:10%;"></div>
-                    </div>
-                    <div class="vspace" style="height:15px"></div>
-                    
-                </div>
-                <div class="hspace" style="width:2.5%;"></div>
-            </div>
-            <div class="hspace" style="width:2%;"></div>
-            <div class="content">
-                <div class="hspace" style="width:2.5%;"></div>
-                <div class="innercontent">
-                    <div class="vspace" style="height:15px"></div>
-                    <div class="titlecontainer">
-                        <div class="hspace" style="width:10%;"></div>
-                        <div class="title">
-                            <h1>PVP</h1>
+                        <div class="vspace" style="height:2.5%"></div>
+                        <div class="modeimage">
+                            <img src="../../images/pve.png">
                         </div>
-                        <div class="hspace" style="width:10%;"></div>
+                        <div class="vspace" style="height:2.5%"></div>
+                        <h1>PLAY VS THE MACHINE TO EARN $RST </h1>
+                        <div class="vspace" style="height:2.5%"></div>
+                        <div style="height:25%;; border-radius: 10px; display:flex; background-color: rgba(0, 0, 0,0.2);">
+                            <button><</button>
+                            <div style="height:100%; width:90%; border-radius: 10px; display:flex;">
+                                <div id= "slot0" class="slot">
+                                    <p id="tp0"></p>
+                                    <p style="font-size: 13px" id= "price0"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot1" class="slot">
+                                    <p id="tp1"></p>
+                                    <p style="font-size: 13px" id= "price1"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot2" class="slot">
+                                    <p id="tp2"></p>
+                                    <p style="font-size: 13px" id= "price2"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot3" class="slot">
+                                    <p id="tp3"></p>
+                                    <p style="font-size: 13px" id= "price3"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot4" class="slot">
+                                    <p id="tp4"></p>
+                                    <p style="font-size: 13px" id= "price4"></p>
+                                </div>
+                            </div>
+                            <button>></button>
+                        </div>
+                        <div class="vspace" style="height:5%"></div>
+                        <div class="playbutton" style="height:10%">
+                            <button onclick=selectpve()>no card selected</button>
+                        </div>
                     </div>
-                    <div class="vspace" style="height:15px"></div>   
+                    <div class="hspace" style="width:2.5%;"></div>
                 </div>
-                <div class="hspace" style="width:2.5%;"></div>
+                <div class="hspace" style="width:2%;"></div>
+                <div class="content">
+                    <div class="hspace" style="width:2.5%;"></div>
+                    <div class="innercontent">
+                        <div class="vspace" style="height:2.5%"></div>
+                        <div class="titlecontainer">
+                            <div class="hspace" style="width:10%;"></div>
+                            <div class="title">
+                                <h1>PVP</h1>
+                            </div>
+                            <div class="hspace" style="width:10%;"></div>
+                        </div>
+                        <div class="vspace" style="height:2.5%"></div>
+                        <div class="modeimage">
+                            <img src="../../images/pvp.png" style="width:15%">
+                        </div>
+                        <div class="vspace" style="height:2.5%"></div>
+                        <h1>PLAY VS OTHER PLAYERS TO EARN $CCT </h1>
+                        <div class="vspace" style="height:2.5%"></div>
+                        <div style="height:25%;; border-radius: 10px; display:flex; background-color: rgba(0, 0, 0,0.2);">
+                            <button><</button>
+                            <div style="height:100%; width:90%; border-radius: 10px; display:flex;">
+                                <div id= "slot0" class="slot">
+                                    <p id="tp0"></p>
+                                    <p style="font-size: 13px" id= "price0"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot1" class="slot">
+                                    <p id="tp1"></p>
+                                    <p style="font-size: 13px" id= "price1"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot2" class="slot">
+                                    <p id="tp2"></p>
+                                    <p style="font-size: 13px" id= "price2"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot3" class="slot">
+                                    <p id="tp3"></p>
+                                    <p style="font-size: 13px" id= "price3"></p>
+                                </div>
+                                <div class="hspace" style="width:1%"></div>
+                                <div id= "slot4" class="slot">
+                                    <p id="tp4"></p>
+                                    <p style="font-size: 13px" id= "price4"></p>
+                                </div>
+                            </div>
+                            <button>></button>
+                        </div>
+                        <div class="vspace" style="height:5%"></div>
+                        <div class="playbutton" style="height:10%">
+                            <button onclick=selectpvp()>no cards selected (max 2)</button>
+                        </div>
+                    </div>
+                    <div class="hspace" style="width:2.5%;"></div>
+                </div>
+                <div class="hspace" style="width:2%;"></div>
             </div>
-            <div class="hspace" style="width:2%;"></div>
+            <div class="arena" id="loadinggame">
+                <div class="vspace" style="height:40%"></div>
+                <div class="titlecontainer">
+                    <div class="hspace" style="width:10%;"></div>
+                    <div class="title">
+                        <h1>LOADING GAME</h1>
+                    </div>
+                    <div class="hspace" style="width:10%;"></div>
+                </div>
+            </div>
+            <div class="arena">
+                <div class="titlecontainer">
+                    <div class="hspace" style="width:10%;"></div>
+                    <div class="title">
+                        <h1>GAME</h1>
+                    </div>
+                    <div class="hspace" style="width:10%;"></div>
+                </div>
+            </div>
         </div>
 
 
