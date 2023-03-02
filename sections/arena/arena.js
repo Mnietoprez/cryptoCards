@@ -1,12 +1,14 @@
 var tokenAddress = "0xf147035a3FF36EE318C52D836bb9165a71210212";
 var contractAddress = "0xA2b84EBe6705b4c9fF6Db18689cF2b46D53c169F";
-var activeid;
 var account;
 var ids;
-var page = 1;
+var pagePVE = 1;
+var pagePVP = 1;
 var pages;
-var n1= 0;
-var n2;
+var n1PVE= 0;
+var n2PVE;
+var n1PVP= 0;
+var n2PVP;
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
@@ -18,104 +20,23 @@ window.onload = async function(){
 
     ids = await window.contract.methods.cardsOfAdress(account).call();
     pages = Math.ceil(ids.length/9);
-    document.getElementById("pagecounter").innerHTML = `Page 1 of  ${pages}`;
+    document.getElementById("pagecounterPVP").innerHTML = `Page 1 of  ${pages}`;
+    document.getElementById("pagecounterPVE").innerHTML = `Page 1 of  ${pages}`;
 
-    if (ids.length<10){
-        loadSlots(0,ids.length);
-        n2 = ids.length-1;
+    if (ids.length<6){
+        loadSlots(0,ids.length, "PVE");
+        n2PVE = ids.length-1;
     } else{
-        loadSlots(0,8);
-        n2 = 8;
+        loadSlots(0,4, "PVE");
+        n2PVE = 4;
     }
 
-    selectCard(ids[0]);
-}
-
-async function loadSlots(n1, n2){
-    var sl = 0;
-    for (let i = n1; i < n2+1; i++) {
-        var slot = document.getElementById(`slot${sl}`);
-        var text = document.getElementById(`text${sl}`);
-        sl++;
-        var rawData = await window.contract.methods.cards(ids[i]).call();
-        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
-        var totalpower = dataAsArray[4];
-
-        if(totalpower<=2500){
-            slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
-        } else {
-            if(totalpower<=5000){
-                slot.style.backgroundColor = "rgba(26, 172, 0, 0.2)";
-            } else {
-                if(totalpower<=7500){
-                    slot.style.backgroundColor = "rgba(1, 73, 216, 0.2)";
-                } else{
-                    slot.style.backgroundColor = "rgba(152, 0, 172, 0.2)";
-                }
-            }
-        }
-        text.innerHTML = `|&nbspId: ${ids[i]}&nbsp|&nbsp&nbsp&nbsp Name: ${dataAsArray[23]}`;
-        slot.style.cursor = "pointer";
-        slot.onclick = function() { selectCard(ids[i]); };
-    }
-    if (lastpage){
-        for (let i = rest; i <= 8 ; i++) { 
-            var slot = document.getElementById(`slot${i}`);
-            var text = document.getElementById(`text${i}`);
-            text.innerHTML = "";
-            slot.style.cursor = "default";
-            slot.style.backgroundColor = "rgba(0,0,0,0.05)"
-            slot.onclick = function() {};
-        }
-    }
-}
-
-
-async function prevpage(){
-    if(n1==0){
-        console.log("There doesn't exist a previous page")
-    } else {
-        if(lastpage){
-            n1=n1-9;
-            n2=n2-rest;
-            lastpage = false;
-        } else {
-            n1=n1-9;
-            n2=n2-9;
-        }  
-        page--; 
-        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`;  
-        await loadSlots(n1,n2);    
-    }
-}
-
-var rest;
-var lastpage;
-
-async function nextpage(){
-    if(n2==ids.length-1){
-        console.log("There doesn't exist a next page")
-    } else {
-        n1=n1+9;
-        
-        if (ids.length-1 > n2+9){
-            n2=n2+9;
-        } else{
-            rest = ids.length%9;
-            n2 = n2 + rest;
-            lastpage = true;
-        }   
-        page++;
-        document.getElementById("pagecounter").innerHTML = `Page ${page} of  ${pages}`; 
-        await loadSlots(n1,n2); 
-
-    }
-}
-
-async function loadWeb3() {
-    if (window.ethereum) {
-        window.web3 = new Web3(window.ethereum);
-        await window.ethereum.enable();
+    if (ids.length<6){
+        loadSlots(0,ids.length, "PVP");
+        n2PVP = ids.length-1;
+    } else{
+        loadSlots(0,4, "PVP");
+        n2PVP = 4;
     }
 }
 
@@ -135,37 +56,168 @@ function digitFormatter(n){
     
 }
 
+async function loadSlots(n1, n2, gamemode){
+    var sl = 0;
+    for (let i = n1; i < n2+1; i++) {
+        if (gamemode=="PVE"){
+            var slot = document.getElementById(`slotPVE${sl}`);
+            var tp = document.getElementById(`tpPVE${sl}`);
+        }
+
+        if (gamemode=="PVP"){
+            var slot = document.getElementById(`slotPVP${sl}`);
+            var tp = document.getElementById(`tpPVP${sl}`);
+        }
+
+        sl++;
+        var rawData = await window.contract.methods.cards(ids[i]).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        var totalpower = dataAsArray[4];
+
+        if(totalpower<=2500){
+            slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
+        } else {
+            if(totalpower<=5000){
+                slot.style.backgroundColor = "rgba(26, 172, 0, 0.2)";
+            } else {
+                if(totalpower<=7500){
+                    slot.style.backgroundColor = "rgba(1, 73, 216, 0.2)";
+                } else{
+                    slot.style.backgroundColor = "rgba(152, 0, 172, 0.2)";
+                }
+            }
+        }
+        slot.style.cursor = "pointer";
+        tp.innerHTML = `TP: ${totalpower}`;
+
+        if (gamemode=="PVE"){
+            slot.onclick = function() { selectCardPVE(ids[i]); };
+        }
+
+        if (gamemode=="PVP"){
+            slot.onclick = function() { selectCardPVP(ids[i]); };
+        }
+        
+    }
+    if (gamemode == lastpagePVE){
+        for (let i = restPVE; i <= 5 ; i++) { 
+            var slot = document.getElementById(`slotPVE${i}`);
+            slot.style.cursor = "default";
+            slot.style.backgroundColor = "rgba(0,0,0,0.05)"
+            slot.onclick = function() {};
+        }
+    }
+    if (gamemode == lastpagePVP){
+        for (let i = restPVP; i <= 5 ; i++) { 
+            var slot = document.getElementById(`slotPVP${i}`);
+            slot.style.cursor = "default";
+            slot.style.backgroundColor = "rgba(0,0,0,0.05)"
+            slot.onclick = function() {};
+        }
+    }
+}
+
+var restPVE;
+var lastpagePVE;
+var restPVP;
+var lastpagePVP;
+
+async function prevpage(gamemode){
+    if (gamemode=="PVE"){
+        if(n1PVE==0){
+            console.log("There doesn't exist a previous page")
+        } else {
+            if(lastpagePVE){
+                n1PVE=n1PVE-5;
+                n2PVE=n2PVE-restPVE;
+                lastpagePVE = false;
+            } else {
+                n1PVE=n1PVE-5;
+                n2PVE=n2PVE-5;
+            }  
+            pagePVE--; 
+            document.getElementById("pagecounterPVE").innerHTML = `Page ${pagePVE} of  ${pages}`;  
+            await loadSlots(n1PVE,n2PVE, "PVE");    
+        }
+    }
+    if (gamemode=="PVP"){
+        if(n1PVP==0){
+            console.log("There doesn't exist a previous page")
+        } else {
+            if(lastpagePVP){
+                n1PVP=n1PVP-5;
+                n2PVP=n2PVP-restPVP;
+                lastpagePVP = false;
+            } else {
+                n1PVP=n1PVP-5;
+                n2PVP=n2PVP-5;
+            }  
+            pagePVP--; 
+            document.getElementById("pagecounterPVP").innerHTML = `Page ${pagePVP} of  ${pages}`;  
+            await loadSlots(n1PVP,n2PVP, "PVP");    
+        }
+    }
+    
+}
+
+
+async function nextpage(gamemode){
+    if (gamemode=="PVE"){
+        if(n2PVE==ids.length-1){
+            console.log("There doesn't exist a next page")
+        } else {
+            n1PVE=n1PVE+5;
+            
+            if (ids.length-1 > n2PVE+5){
+                n2PVE=n2PVE+5;
+            } else{
+                restPVE = ids.length%5;
+                n2PVE = n2PVE + restPVE;
+                lastpagePVE = true;
+            }   
+            pagePVE++;
+            document.getElementById("pagecounterPVE").innerHTML = `Page ${pagePVE} of  ${pages}`; 
+            await loadSlots(n1PVE,n2PVE); 
+        }
+    }
+    if (gamemode=="PVP"){
+        if(n2PVP==ids.length-1){
+            console.log("There doesn't exist a next page")
+        } else {
+            n1PVP=n1PVP+5;
+            
+            if (ids.lengthPVP-1 > n2PVP+5){
+                n2PVP=n2PVP+5;
+            } else{
+                restPVP = ids.length%5;
+                n2PVP = n2PVP + restPVP;
+                lastpagePVP = true;
+            }   
+            pagePVP++;
+            document.getElementById("pagecounterPVP").innerHTML = `Page ${pagePVP} of  ${pages}`; 
+            await loadSlots(n1PVP,n2PVP, "PVP"); 
+        }
+    }
+    
+}
+
+async function loadWeb3() {
+    if (window.ethereum) {
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+    }
+}
+
+
 async function getCurrentAccount() {
     const accounts = await window.web3.eth.getAccounts();
     return accounts[0];
 }
 
-var images = {
-    0: "../../images/commonmagma.jpg",
-    10: "../../images/commonice.jpg",
-    20: "../../images/commonpoison.jpg",
-    30: "../../images/commonelectric.jpg",
-    100: "../../images/uncommonmagma.jpg",
-    110: "../../images/uncommonice.jpg",
-    120: "../../images/uncommonpoison.jpg",
-    130: "../../images/uncommonelectric.jpg",
-    200: "../../images/raremagma.jpg",
-    210: "../../images/rareice.jpg",
-    220: "../../images/rarepoison.jpg",
-    230: "../../images/rareelectric.jpg",
-    300: "../../images/legendarymagma.jpg",
-    310: "../../images/legendaryice.jpg",
-    320: "../../images/legendarypoison.jpg",
-    330: "../../images/legendaryelectric.jpg",
-}
-
-
 async function selectCard(id){
     const rawData = await window.contract.methods.cards(id).call();
     const dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
     document.getElementById("cardtotalpowerval").innerHTML = dataAsArray[4];
-
-    activeid = id;
 
     var totalpower = dataAsArray[4];
     var numpower;
@@ -214,67 +266,8 @@ async function selectCard(id){
     document.getElementById("cardmagicval").innerHTML = dataAsArray[2];
     document.getElementById("cardrangeval").innerHTML = dataAsArray[3];
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
-    document.getElementById("displayId").innerHTML = `Id: ${id}`;
-    document.getElementById("cardimage").src = `${images[numpower*100+dataAsArray[5]*10]}`;
-
-    if (dataAsArray[8]) {
-        salevalue = await window.contract.methods.viewPrice(id).call();
-        document.getElementById("sellValue").value = "";
-        document.getElementById("sellValue").value = `Card already for sale (${salevalue/10e17} CCT) `;
-        document.getElementById("sellValue").style.width = "100%";
-        document.getElementById("sellValue").readOnly = true;
-        document.getElementById("sellButton").style.opacity = "0%";
-        document.getElementById("sellButton").style.cursor = "default"
-        document.getElementById("sellButton").onclick = function() { uselessfunction() };;
-    } else {
-        document.getElementById("sellValue").value = "";
-        document.getElementById("sellValue").placeholder = `CCT amount`;
-        document.getElementById("sellButton").onclick = function() { createOffer() };
-        document.getElementById("sellValue").style.width = "60%";
-        document.getElementById("sellValue").readOnly = false;
-        document.getElementById("sellButton").style.opacity = "100%";
-        document.getElementById("sellButton").style.cursor = "pointer"
-    }
-    
-    
-    if (dataAsArray[6]){
-        document.getElementById("upgradestatus").innerHTML= "Available!";
-    } else {
-        document.getElementById("upgradestatus").innerHTML = "Win a pvp battle first";
-    }
 }
 
-function uselessfunction(){
-    console.log("nothing");
-}
-
-async function sendTo(){
-    var to = document.getElementById("newowner").value;
-    await window.contract.methods.safeTransferFrom(account, to, activeid ).send({ from: account });
-}
-
-async function changeName(){
-    _newname = document.getElementById("newname").value;
-    if (_newname.length < 21){
-        document.getElementById("changenamestatus").innerHTML = "Updating, please wait a few seconds."
-        await window.contract.methods.changeName(_newname, activeid).send({ from: account });
-        document.getElementById("changenamestatus").innerHTML = "&nbsp"
-    } else {
-        document.getElementById("changenamestatus").innerHTML = "Name exceeds the 20 caps limit"
-    }
-}
-
-async function createOffer(){
-    var amount = BigInt(document.getElementById("sellValue").value * 1000000000000000000);
-    if(amount == undefined || amount<=0){
-        document.getElementById("sellstatus").innerHTML = "Please enter a valid quantity"
-    } else {
-        console.log(amount);
-        document.getElementById("sellstatus").innerHTML = "Updating, please wait a few seconds."
-        await window.contract.methods.sellCard(activeid, amount).send({ from: account });
-    }
-    
-}
 
 function selectpve(){
     document.getElementById("modeselector").remove();

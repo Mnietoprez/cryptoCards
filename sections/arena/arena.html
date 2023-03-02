@@ -69,36 +69,31 @@
                         <h1>PLAY VS THE MACHINE TO EARN $RST </h1>
                         <div class="vspace" style="height:2.5%"></div>
                         <div style="height:25%;; border-radius: 10px; display:flex; background-color: rgba(0, 0, 0,0.2);">
-                            <button><</button>
+                            <button onclick=prevpage("PVE")><</button>
                             <div style="height:100%; width:90%; border-radius: 10px; display:flex;">
-                                <div id= "slot0" class="slot">
-                                    <p id="tp0"></p>
-                                    <p style="font-size: 13px" id= "price0"></p>
+                                <div id= "slotPVE0" class="slot">
+                                    <p id="tpPVE0"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot1" class="slot">
-                                    <p id="tp1"></p>
-                                    <p style="font-size: 13px" id= "price1"></p>
+                                <div id= "slotPVE1" class="slot">
+                                    <p id="tpPVE1"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot2" class="slot">
-                                    <p id="tp2"></p>
-                                    <p style="font-size: 13px" id= "price2"></p>
+                                <div id= "slotPVE2" class="slot">
+                                    <p id="tpPVE2"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot3" class="slot">
-                                    <p id="tp3"></p>
-                                    <p style="font-size: 13px" id= "price3"></p>
+                                <div id= "slotPVE3" class="slot">
+                                    <p id="tpPVE3"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot4" class="slot">
-                                    <p id="tp4"></p>
-                                    <p style="font-size: 13px" id= "price4"></p>
+                                <div id= "slotPVE4" class="slot">
+                                    <p id="tpPVE4"></p>
                                 </div>
                             </div>
-                            <button>></button>
+                            <button onclick=nextpage("PVE")>></button>
                         </div>
-                        <div class="vspace" style="height:5%"></div>
+                        <p id="pagecounterPVE">Page 1 of 1</p>
                         <div class="playbutton" style="height:10%">
                             <button onclick=selectpve()>no card selected</button>
                         </div>
@@ -125,36 +120,31 @@
                         <h1>PLAY VS OTHER PLAYERS TO EARN $CCT </h1>
                         <div class="vspace" style="height:2.5%"></div>
                         <div style="height:25%;; border-radius: 10px; display:flex; background-color: rgba(0, 0, 0,0.2);">
-                            <button><</button>
+                            <button onclick=prevpage("PVP")><</button>
                             <div style="height:100%; width:90%; border-radius: 10px; display:flex;">
-                                <div id= "slot0" class="slot">
-                                    <p id="tp0"></p>
-                                    <p style="font-size: 13px" id= "price0"></p>
+                                <div id= "slotPVP0" class="slot">
+                                    <p id="tpPVP0"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot1" class="slot">
-                                    <p id="tp1"></p>
-                                    <p style="font-size: 13px" id= "price1"></p>
+                                <div id= "slotPVP1" class="slot">
+                                    <p id="tpPVP1"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot2" class="slot">
-                                    <p id="tp2"></p>
-                                    <p style="font-size: 13px" id= "price2"></p>
+                                <div id= "slotPVP2" class="slot">
+                                    <p id="tpPVP2"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot3" class="slot">
-                                    <p id="tp3"></p>
-                                    <p style="font-size: 13px" id= "price3"></p>
+                                <div id= "slotPVP3" class="slot">
+                                    <p id="tpPVP3"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
-                                <div id= "slot4" class="slot">
-                                    <p id="tp4"></p>
-                                    <p style="font-size: 13px" id= "price4"></p>
+                                <div id= "slotPVP4" class="slot">
+                                    <p id="tpPVP4"></p>
                                 </div>
                             </div>
-                            <button>></button>
+                            <button onclick=nextpage("PVP")>></button>
                         </div>
-                        <div class="vspace" style="height:5%"></div>
+                        <p id="pagecounterPVP">Page 1 of 1</p>
                         <div class="playbutton" style="height:10%">
                             <button onclick=selectpvp()>no cards selected (max 2)</button>
                         </div>
