@@ -26,4 +26,3 @@ contract CryptoCardToken is ERC20, ERC20Burnable, Ownable {
         _mint(to, amount);
     }
 }
-

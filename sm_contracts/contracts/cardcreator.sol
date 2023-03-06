@@ -15,17 +15,7 @@ abstract contract CardNFT is ERC721 {
 
     CryptoCardToken token;
     address public tokenAddress;
-
-    function setTokenAddress (address _tokenAddress) public onlyContractOwner{
-        token = CryptoCardToken(_tokenAddress);
-        tokenAddress = _tokenAddress;
-    }
     
-
-    function changeContractOwner(address _newOwner) public onlyContractOwner(){
-        owner = _newOwner;
-    }
-
     function mint(address to_) private {
         _mint(to_, id);
         id++;
@@ -48,22 +38,25 @@ abstract contract CardNFT is ERC721 {
 
 
     card[] public cards;
-
-    function totalCards() public view returns(uint){
-        return cards.length;
-    }
     
-    uint private nonce = 0;
+    uint internal createnonce = 0;
+    uint internal fightnonce = 0;
     uint private id = 0;
     
-    function randomnum(uint16 n) private returns(uint16){
-        uint16 val = uint16(uint(keccak256(abi.encodePacked(nonce, block.timestamp))) % n + 1);
-        nonce++;
+    function randomnum(uint16 n, bool create) internal returns(uint16){
+        uint16 val;
+        if (create) {
+            val = uint16(uint(keccak256(abi.encodePacked(createnonce, block.timestamp))) % n);
+            createnonce++;
+        } else {
+            val = uint16(uint(keccak256(abi.encodePacked(fightnonce, block.timestamp))) % n);
+            fightnonce++;
+        }
         return val;
     }
 
     function determineQuality(uint8 c,uint8 u, uint8 r) internal returns(uint8){
-        uint16 num = randomnum(100);
+        uint16 num = randomnum(101, true);
         if (num<=c){
             return 0;
         } else{
@@ -79,65 +72,50 @@ abstract contract CardNFT is ERC721 {
         }
     }
 
-    function openSmall () external {
+    function open(uint size) external {
         //the small pack loops the creation of the randnums a maximum of 10 times, where if the number is greater than 3000
         //another random number is picked, in order to reduce the probabilities of getting a good stat
-        require(token.balanceOf(msg.sender) >= 10e18, "1 Matic is required to execute this function.");
-        token.approve(msg.sender, tokenAddress , 10e18);
-        token.transferFrom(msg.sender, tokenAddress, owner, 10e18);  
-
-        uint8 quality = determineQuality(67, 20, 12);
-        uint16[4] memory rands;
-
-        for (uint i=0; i<4; i++){
-            rands[i] = randomnum(2500)+quality*2500;
-        }
-        
-        uint16 faction = randomnum(4)-1;
-        uint16 totalPower = (rands[0]+rands[1]+rands[2]+rands[3])/4;
-        
-        cards.push(card(rands[0],rands[1],rands[2],rands[3],totalPower,faction, false,0, false, false, id, "Default"));
-        mint(msg.sender);
-    }
-
-       
-    function openMedium () external {
-         //the medium pack loops the creation of the randnums a maximum of 7 times, where if the number isnt between 3000 and 6500
+        //the medium pack loops the creation of the randnums a maximum of 7 times, where if the number isnt between 3000 and 6500
         //another random number is picked, in order to moderate the probabilities of getting a good stat
-        require(token.balanceOf(msg.sender) >= 4*10e18, "4 Matic is required to execute this function.");
-        token.approve(msg.sender, tokenAddress , 4*10e18);
-        token.transferFrom(msg.sender, tokenAddress, owner, 4*10e18);   
-
-        uint8 quality = determineQuality(10, 61, 23);
+        //the large pack sets no limits to your luck (minimum of 4000 on each stat)!!!
+        require(size>=0 && size<3);
         uint16[4] memory rands;
+        if (size == 0){
+            require(token.balanceOf(msg.sender) >= 10e18, "1 Matic is required to execute this function.");
+            token.approve(msg.sender, tokenAddress , 10e18);
+            token.transferFrom(msg.sender, tokenAddress, owner, 10e18);  
 
-        for (uint i=0; i<4; i++){
-            rands[i] = randomnum(2500)+quality*2500;
+            uint8 quality = determineQuality(67, 20, 12);
+
+            for (uint i=0; i<4; i++){
+                rands[i] = randomnum(2501, true)+quality*2500;
+            }
         }
-        
-        uint16 faction = randomnum(4)-1;
-        uint16 totalPower = (rands[0]+rands[1]+rands[2]+rands[3])/4;
-        
-        cards.push(card(rands[0],rands[1],rands[2],rands[3],totalPower,faction, false,0, false, false, id, "Default"));
-        mint(msg.sender);
-    }
+        if (size == 1){
+            require(token.balanceOf(msg.sender) >= 4*10e18, "4 Matic is required to execute this function.");
+            token.approve(msg.sender, tokenAddress , 4*10e18);
+            token.transferFrom(msg.sender, tokenAddress, owner, 4*10e18);   
 
-    function openLarge () external {
-        // no limits to your luck (minimum of 4000 on each stat)!!!
-        require(token.balanceOf(msg.sender) >= 10e19, "10 Matic is required to execute this function.");
-        token.approve(msg.sender, tokenAddress , 10e19);
-        token.transferFrom(msg.sender, tokenAddress, owner, 10e19);
+            uint8 quality = determineQuality(10, 61, 23);
 
-        uint8 quality = determineQuality(0, 30, 50);
-        uint16[4] memory rands;
-
-        for (uint i=0; i<4; i++){
-            rands[i] = randomnum(2500)+quality*2500;
+            for (uint i=0; i<4; i++){
+                rands[i] = randomnum(2501, true)+quality*2500;
+            }
         }
+        if (size == 2){
+            require(token.balanceOf(msg.sender) >= 10e19, "10 Matic is required to execute this function.");
+            token.approve(msg.sender, tokenAddress , 10e19);
+            token.transferFrom(msg.sender, tokenAddress, owner, 10e19);
+
+            uint8 quality = determineQuality(0, 30, 50);
         
-        uint16 faction = randomnum(4)-1;
+            for (uint i=0; i<4; i++){
+                rands[i] = randomnum(2501, true)+quality*2500;
+            }
+        }
+
+        uint16 faction = randomnum(4, true);
         uint16 totalPower = (rands[0]+rands[1]+rands[2]+rands[3])/4;
-        
         cards.push(card(rands[0],rands[1],rands[2],rands[3],totalPower,faction, false,0, false, false, id, "Default"));
         mint(msg.sender);
     }

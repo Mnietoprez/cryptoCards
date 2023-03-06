@@ -1,10 +1,10 @@
 pragma solidity ^0.8.0;
 
-import "./cardmarket.sol";
+import "./cardbattlepve.sol";
 
 //@yo falta testear las funciones y devolver el rust, falta pve
 
-contract CardBattlePVP is CardMarket{
+contract CardBattlePVP is CardBattlePVE{
 
     mapping (address=>uint) pool;
 

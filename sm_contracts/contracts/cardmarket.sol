@@ -4,14 +4,10 @@ pragma solidity ^0.8.0;
 import "./cardmanager.sol";
 
 
-contract CardMarket is CardManager{
+abstract contract CardMarket is CardManager{
 
-    constructor() ERC721("AmazingCryptoCards" , "ACC"){
-        owner = msg.sender;
-    }
 
     mapping (uint => uint) priceOfCard;
-    mapping (uint => uint) private indexOfCard;
 
     function viewPrice(uint _id) public view returns (uint){
         require (cards[_id].onSale == true, "Card is not on sale");
