@@ -308,13 +308,17 @@ async function selectCardPVE(_id){
     var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
     document.getElementById("namePVEselected").innerHTML = `Card selected: ${dataAsArray[11]} (TP: ${dataAsArray[4]})`;
     document.getElementById("idPVEselected").innerHTML = `Id: ${ids[_id]}`;
+    document.getElementById("pvebutton").innerHTML = "Fight!";
     activePVEid = ids[_id];
+
 }
 
 async function selectpve(){
     document.getElementById("modeselector").remove();
-    //var result = await window.contract.methods.Fight(activePVEid).send({ from: account });
+    var result = await window.contract.methods.Fight(activePVEid).send({ from: account });
     document.getElementById("loadinggame").remove();
+    console.log(result);
+    
 }
 
 function selectpvp(){
