@@ -73,29 +73,50 @@
                             <div style="height:100%; width:90%; border-radius: 10px; display:flex;">
                                 <div id= "slotPVE0" class="slot">
                                     <p id="tpPVE0"></p>
+                                    <p id="ofPVE0" style="font-size: 15px;"></p>
+                                    <p id="cdPVE0" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVE1" class="slot">
                                     <p id="tpPVE1"></p>
+                                    <p id="ofPVE1" style="font-size: 15px;"></p>
+                                    <p id="cdPVE1" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVE2" class="slot">
                                     <p id="tpPVE2"></p>
+                                    <p id="ofPVE2" style="font-size: 15px;"></p>
+                                    <p id="cdPVE2" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVE3" class="slot">
                                     <p id="tpPVE3"></p>
+                                    <p id="ofPVE3" style="font-size: 15px;"></p>
+                                    <p id="cdPVE3" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVE4" class="slot">
                                     <p id="tpPVE4"></p>
+                                    <p id="ofPVE4" style="font-size: 15px;"></p>
+                                    <p id="cdPVE4" style="font-size: 15px;"></p>
                                 </div>
                             </div>
                             <button onclick=nextpage("PVE")>></button>
                         </div>
-                        <p id="pagecounterPVE">Page 1 of 1</p>
-                        <div class="playbutton" style="height:10%">
-                            <button onclick=selectpve()>no card selected</button>
+                        
+                        <div class="settings" style="height:25%; display:flex">
+                            <div style="height:100%; width:60%; display: block; border-radius: 10px;">
+                                <div class="vspace" style="height: 10%;"></div>
+                                <div style="height:60%; width:100%; text-align: left; display: block; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                                    <p style="padding-left: 20px; padding-top: 15px" id="namePVEselected">Card selected: </p>
+                                    <p style="padding-left: 20px" id="idPVEselected">Id: </p>
+                                </div>
+                            </div>
+                            <div class="hspace" style="width: 8.5%;"></div>
+                            <div style="height:100%; width:25%; display: block;">
+                                <p id="pagecounterPVE">Page 1 of 1</p>
+                                <button onclick=selectpve() id="pvebutton">no card selected</button>
+                            </div>
                         </div>
                     </div>
                     <div class="hspace" style="width:2.5%;"></div>
@@ -124,29 +145,49 @@
                             <div style="height:100%; width:90%; border-radius: 10px; display:flex;">
                                 <div id= "slotPVP0" class="slot">
                                     <p id="tpPVP0"></p>
+                                    <p id="ofPVP0" style="font-size: 15px;"></p>
+                                    <p id="cdPVP0" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVP1" class="slot">
                                     <p id="tpPVP1"></p>
+                                    <p id="ofPVP1" style="font-size: 15px;"></p>
+                                    <p id="cdPVP1" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVP2" class="slot">
                                     <p id="tpPVP2"></p>
+                                    <p id="ofPVP2" style="font-size: 15px;"></p>
+                                    <p id="cdPVP2" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVP3" class="slot">
                                     <p id="tpPVP3"></p>
+                                    <p id="ofPVP3" style="font-size: 15px;"></p>
+                                    <p id="cdPVP3" style="font-size: 15px;"></p>
                                 </div>
                                 <div class="hspace" style="width:1%"></div>
                                 <div id= "slotPVP4" class="slot">
                                     <p id="tpPVP4"></p>
+                                    <p id="ofPVP4" style="font-size: 15px;"></p>
+                                    <p id="cdPVP4" style="font-size: 15px;"></p>
                                 </div>
                             </div>
                             <button onclick=nextpage("PVP")>></button>
                         </div>
-                        <p id="pagecounterPVP">Page 1 of 1</p>
-                        <div class="playbutton" style="height:10%">
-                            <button onclick=selectpvp()>no cards selected (max 2)</button>
+                        <div class="settings" style="height:25%; display:flex">
+                            <div style="height:100%; width:60%; display: block; border-radius: 10px;">
+                                <div class="vspace" style="height: 10%;"></div>
+                                <div style="height:60%; width:100%; text-align: left; display: block; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                                    <p style="padding-left: 20px; padding-top: 15px">Card(s) selected: </p>
+                                    <p style="padding-left: 20px">Id(s): </p>
+                                </div>
+                            </div>
+                            <div class="hspace" style="width: 8.5%;"></div>
+                            <div style="height:100%; width:25%; display: block;">
+                                <p id="pagecounterPVP">Page 1 of 1</p>
+                                <button onclick=selectpvp() id="pvpbutton">no cards selected (max 2)</button>
+                            </div>
                         </div>
                     </div>
                     <div class="hspace" style="width:2.5%;"></div>
@@ -170,6 +211,45 @@
                         <h1>GAME</h1>
                     </div>
                     <div class="hspace" style="width:10%;"></div>
+                </div>
+                <div class="vspace" style="height:5%"></div>
+                <div style="height: 80%; display:flex">
+                    <div class="hspace" style="width:10%"></div>
+                    <div style="height: 100%;width:80%; display:flex; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
+                        <div class="hspace" style="width:15%"></div>  
+                        <div style="height: 100%;width:25%; display:block">
+                            <div class="vspace" style="height:15%"></div>  
+                            <div class="card" style="height: 85%;width:100%; display:block; background-color: rgb(22, 22, 22); border-radius: 10px; text-align: center;">
+                                <div class="vspace" style="height:5%"></div> 
+                                <div style="height: 10%;width:100%; display:flex;">
+                                    <div class="hspace" style="width:10%"></div>  
+                                    <div style="height: 100%;width:80%; background-color: rgb(13, 13, 13)">
+                                        <p id="name" style="color: white">Default</p>
+                                    </div> 
+                                    <div class="hspace" style="width:10%"></div>  
+                                </div>
+                                <div class="vspace" style="height:5%"></div> 
+                                <div style="height: 40%;width:100%; display:flex;">
+                                    <div class="hspace" style="width:5%"></div>  
+                                    <div style="height: 100%;width:90%; background-color: rgb(13, 13, 13); text-align: center; border-radius: 5px;">
+                    
+                                    </div> 
+                                    <div class="hspace" style="width:5%"></div>  
+                                </div> 
+                                <div class="vspace" style="height:5%"></div> 
+                                <button style="background-color:rgb(172, 32, 0)">Melee attack ⚔️</button> 
+                                <button style="background-color:rgb(0, 141, 172)">Range attack 🏹</button> 
+                                <button style="background-color:rgb(155, 0, 172)">Magic attack ✨</button>  
+                                <div class="vspace" style="height:5%"></div>
+                            </div> 
+                        </div> 
+                        <div class="hspace" style="width:25%"></div> 
+                        <div style="height: 100%;width:20%; display:block; background-color: rgb(211, 0, 239); border-radius: 10px;">
+                                
+                        </div> 
+                        <div class="hspace" style="width:15%"></div>
+                    </div>
+                    <div class="hspace" style="width:10%"></div>
                 </div>
             </div>
         </div>

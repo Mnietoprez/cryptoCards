@@ -1,5 +1,5 @@
-var tokenAddress = "0x1eF0B9D20aDE1179CBB4555e58fcC0FA696F61a4";
-var contractAddress = "0xCAe455aBB4Fa10EecC97ab2DD976209d331064e1";
+var tokenAddress = "0xb1A74A318a385C96b8298dF30Dbb2C4195c55b4f";
+var contractAddress = "0xeC2966Fa224343B3751FE12C358cC1FC06E697F0";
 var activeid;
 var account;
 var marketids =[];
@@ -29,7 +29,8 @@ window.onload = async function(){
     document.getElementById("cardToken").innerHTML=digitFormatter(await window.token.methods.balanceOf(account).call());
     document.getElementById("rust").innerHTML=await window.contract.methods.rustBalanceOf(account).call();
 
-    ids = await window.contract.methods.totalCards().call();
+    ids = await window.contract.methods.id.call();
+    console.log(ids)
     myids = await window.contract.methods.cardsOfAdress(account).call();
 
     for (i=0;i<ids;i++){
@@ -495,6 +496,187 @@ async function loadContract() {
             "type": "event"
         },
         {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "buyCard",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelSale",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "changeName",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Fight",
+            "outputs": [
+                {
+                    "internalType": "uint16[5]",
+                    "name": "",
+                    "type": "uint16[5]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "size",
+                    "type": "uint256"
+                }
+            ],
+            "name": "open",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "sellCard",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "setApprovalForAll",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "anonymous": false,
             "inputs": [
                 {
@@ -522,24 +704,10 @@ async function loadContract() {
         {
             "inputs": [
                 {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "Fight",
-            "outputs": [
-                {
-                    "internalType": "uint16[5]",
-                    "name": "",
-                    "type": "uint16[5]"
-                }
-            ],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
                 {
                     "internalType": "address",
                     "name": "to",
@@ -551,7 +719,25 @@ async function loadContract() {
                     "type": "uint256"
                 }
             ],
-            "name": "approve",
+            "name": "transferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_stat",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "upgradeStat",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -573,32 +759,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "buyCard",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "cancelSale",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -697,24 +857,6 @@ async function loadContract() {
         {
             "inputs": [
                 {
-                    "internalType": "string",
-                    "name": "_name",
-                    "type": "string"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "changeName",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
                     "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
@@ -745,6 +887,19 @@ async function loadContract() {
                     "internalType": "address",
                     "name": "",
                     "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "id",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -785,19 +940,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "size",
-                    "type": "uint256"
-                }
-            ],
-            "name": "open",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -849,93 +991,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "safeTransferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "data",
-                    "type": "bytes"
-                }
-            ],
-            "name": "safeTransferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_price",
-                    "type": "uint256"
-                }
-            ],
-            "name": "sellCard",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "operator",
-                    "type": "address"
-                },
-                {
-                    "internalType": "bool",
-                    "name": "approved",
-                    "type": "bool"
-                }
-            ],
-            "name": "setApprovalForAll",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -1000,47 +1055,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_stat",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "upgradeStat",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {

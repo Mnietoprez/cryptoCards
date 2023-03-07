@@ -152,9 +152,9 @@ body{
     background-color:rgb(122, 107, 98);
 }
 
-.playbutton button{
-    width:25%;
-    height:100%;
+.settings button{
+    width:100%;
+    height:35%;
     background-color: rgb(195, 168, 152);
     font-size: 18px;
     font-family: arial;
@@ -162,8 +162,23 @@ body{
     cursor: pointer;
 }
 
-.playbutton button:hover {
+.settings button:hover {
     transition: 0.15s;
     transform:scale(1.1, 1.2);
     background-color:rgb(122, 107, 98);
+}
+
+.settings p{
+    color: rgb(207, 194, 186);
+}
+
+.card button{
+    height:10%;
+    width:80%;
+    cursor: pointer;
+}
+
+.card button:hover {
+    transition: 0.15s;
+    transform:scale(1.1, 1.1);
 }

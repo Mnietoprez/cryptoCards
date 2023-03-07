@@ -1,5 +1,5 @@
-var tokenAddress = "0x1eF0B9D20aDE1179CBB4555e58fcC0FA696F61a4";
-var contractAddress = "0xCAe455aBB4Fa10EecC97ab2DD976209d331064e1";
+var tokenAddress = "0xb1A74A318a385C96b8298dF30Dbb2C4195c55b4f";
+var contractAddress = "0xeC2966Fa224343B3751FE12C358cC1FC06E697F0";
 var account;
 var ids;
 var pagePVE = 1;
@@ -62,17 +62,39 @@ async function loadSlots(n1, n2, gamemode){
         if (gamemode=="PVE"){
             var slot = document.getElementById(`slotPVE${sl}`);
             var tp = document.getElementById(`tpPVE${sl}`);
+            var of = document.getElementById(`ofPVE${sl}`);
+            var cd = document.getElementById(`cdPVE${sl}`);
         }
 
         if (gamemode=="PVP"){
             var slot = document.getElementById(`slotPVP${sl}`);
             var tp = document.getElementById(`tpPVP${sl}`);
+            var of = document.getElementById(`ofPVP${sl}`);
+            var cd = document.getElementById(`cdPVP${sl}`);
         }
 
         sl++;
         var rawData = await window.contract.methods.cards(ids[i]).call();
         var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
         var totalpower = dataAsArray[4];
+        var onFight = dataAsArray[9];
+        var cooldown = await window.contract.methods.cooldowns(ids[i]).call();
+
+        if (cooldown+86400<=Date.now){
+            cd.innerHTML="Cooldown= none";
+            cd.style.color="green"
+        } else {
+            cd.innerHTML=cooldown+86400-Date.now ;
+            cd.style.color="red"
+        }
+        
+        if (onFight){
+            of.innerHTML = "OnFight=Yes";
+            of.style.color = "red";
+        } else{
+            of.innerHTML = "OnFight=No";
+            of.style.color = "green";
+        }
 
         if(totalpower<=2500){
             slot.style.backgroundColor = "rgba(186, 186, 186, 0.2)";
@@ -99,18 +121,30 @@ async function loadSlots(n1, n2, gamemode){
         }
         
     }
-    if (gamemode == lastpagePVE){
+    if (lastpagePVE==true){
         for (let i = restPVE; i <= 5 ; i++) { 
             var slot = document.getElementById(`slotPVE${i}`);
+            var tp = document.getElementById(`tpPVE${i}`);
+            var of = document.getElementById(`ofPVE${i}`);
+            var cd = document.getElementById(`cdPVE${i}`);
             slot.style.cursor = "default";
+            tp.innerHTML = "";
+            of.innerHTML = "";
+            cd.innerHTML = "";
             slot.style.backgroundColor = "rgba(0,0,0,0.05)"
             slot.onclick = function() {};
         }
     }
-    if (gamemode == lastpagePVP){
+    if (lastpagePVP==true){
         for (let i = restPVP; i <= 5 ; i++) { 
             var slot = document.getElementById(`slotPVP${i}`);
+            var tp = document.getElementById(`tpPVP${i}`);
+            var of = document.getElementById(`ofPVP${i}`);
+            var cd = document.getElementById(`cdPVP${i}`);
             slot.style.cursor = "default";
+            tp.innerHTML = "";
+            of.innerHTML = "";
+            cd.innerHTML = "";
             slot.style.backgroundColor = "rgba(0,0,0,0.05)"
             slot.onclick = function() {};
         }
@@ -177,7 +211,7 @@ async function nextpage(gamemode){
             }   
             pagePVE++;
             document.getElementById("pagecounterPVE").innerHTML = `Page ${pagePVE} of  ${pages}`; 
-            await loadSlots(n1PVE,n2PVE); 
+            await loadSlots(n1PVE,n2PVE, "PVE"); 
         }
     }
     if (gamemode=="PVP"){
@@ -186,7 +220,7 @@ async function nextpage(gamemode){
         } else {
             n1PVP=n1PVP+5;
             
-            if (ids.lengthPVP-1 > n2PVP+5){
+            if (ids.length-1 > n2PVP+5){
                 n2PVP=n2PVP+5;
             } else{
                 restPVP = ids.length%5;
@@ -268,10 +302,18 @@ async function selectCard(id){
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
 }
 
+var activePVEid;
+async function selectCardPVE(_id){
+    var rawData = await window.contract.methods.cards(ids[_id]).call();
+    var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+    document.getElementById("namePVEselected").innerHTML = `Card selected: ${dataAsArray[11]} (TP: ${dataAsArray[4]})`;
+    document.getElementById("idPVEselected").innerHTML = `Id: ${ids[_id]}`;
+    activePVEid = ids[_id];
+}
 
-function selectpve(){
+async function selectpve(){
     document.getElementById("modeselector").remove();
-    //await loquesea
+    //var result = await window.contract.methods.Fight(activePVEid).send({ from: account });
     document.getElementById("loadinggame").remove();
 }
 
@@ -347,6 +389,187 @@ async function loadContract() {
             "type": "event"
         },
         {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "approve",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "buyCard",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "cancelSale",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "string",
+                    "name": "_name",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "changeName",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "Fight",
+            "outputs": [
+                {
+                    "internalType": "uint16[5]",
+                    "name": "",
+                    "type": "uint16[5]"
+                }
+            ],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "size",
+                    "type": "uint256"
+                }
+            ],
+            "name": "open",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
+                {
+                    "internalType": "address",
+                    "name": "to",
+                    "type": "address"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokenId",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bytes",
+                    "name": "data",
+                    "type": "bytes"
+                }
+            ],
+            "name": "safeTransferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_price",
+                    "type": "uint256"
+                }
+            ],
+            "name": "sellCard",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "address",
+                    "name": "operator",
+                    "type": "address"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "approved",
+                    "type": "bool"
+                }
+            ],
+            "name": "setApprovalForAll",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
             "anonymous": false,
             "inputs": [
                 {
@@ -374,24 +597,10 @@ async function loadContract() {
         {
             "inputs": [
                 {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "Fight",
-            "outputs": [
-                {
-                    "internalType": "uint16[5]",
-                    "name": "",
-                    "type": "uint16[5]"
-                }
-            ],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
+                    "internalType": "address",
+                    "name": "from",
+                    "type": "address"
+                },
                 {
                     "internalType": "address",
                     "name": "to",
@@ -403,7 +612,25 @@ async function loadContract() {
                     "type": "uint256"
                 }
             ],
-            "name": "approve",
+            "name": "transferFrom",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "_stat",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_id",
+                    "type": "uint256"
+                }
+            ],
+            "name": "upgradeStat",
             "outputs": [],
             "stateMutability": "nonpayable",
             "type": "function"
@@ -425,32 +652,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "buyCard",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "cancelSale",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -549,24 +750,6 @@ async function loadContract() {
         {
             "inputs": [
                 {
-                    "internalType": "string",
-                    "name": "_name",
-                    "type": "string"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "changeName",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
                     "internalType": "uint256",
                     "name": "",
                     "type": "uint256"
@@ -597,6 +780,19 @@ async function loadContract() {
                     "internalType": "address",
                     "name": "",
                     "type": "address"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "id",
+            "outputs": [
+                {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
                 }
             ],
             "stateMutability": "view",
@@ -637,19 +833,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "size",
-                    "type": "uint256"
-                }
-            ],
-            "name": "open",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -701,93 +884,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "safeTransferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "bytes",
-                    "name": "data",
-                    "type": "bytes"
-                }
-            ],
-            "name": "safeTransferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_price",
-                    "type": "uint256"
-                }
-            ],
-            "name": "sellCard",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "operator",
-                    "type": "address"
-                },
-                {
-                    "internalType": "bool",
-                    "name": "approved",
-                    "type": "bool"
-                }
-            ],
-            "name": "setApprovalForAll",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
@@ -852,47 +948,6 @@ async function loadContract() {
                 }
             ],
             "stateMutability": "view",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "address",
-                    "name": "from",
-                    "type": "address"
-                },
-                {
-                    "internalType": "address",
-                    "name": "to",
-                    "type": "address"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "tokenId",
-                    "type": "uint256"
-                }
-            ],
-            "name": "transferFrom",
-            "outputs": [],
-            "stateMutability": "nonpayable",
-            "type": "function"
-        },
-        {
-            "inputs": [
-                {
-                    "internalType": "uint256",
-                    "name": "_stat",
-                    "type": "uint256"
-                },
-                {
-                    "internalType": "uint256",
-                    "name": "_id",
-                    "type": "uint256"
-                }
-            ],
-            "name": "upgradeStat",
-            "outputs": [],
-            "stateMutability": "nonpayable",
             "type": "function"
         },
         {
