@@ -1,5 +1,5 @@
-var tokenAddress = "0xb1A74A318a385C96b8298dF30Dbb2C4195c55b4f";
-var contractAddress = "0xeC2966Fa224343B3751FE12C358cC1FC06E697F0";
+var tokenAddress = "0x94Bb905890A4b11A53242a90DA445F91aF26629D";
+var contractAddress = "0xAdF56e8539454d5FC385f0862f045BD6b6D9Ee73";
 var account;
 var ids;
 var pagePVE = 1;
@@ -9,6 +9,7 @@ var n1PVE= 0;
 var n2PVE;
 var n1PVP= 0;
 var n2PVP;
+
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
@@ -159,7 +160,7 @@ var lastpagePVP;
 async function prevpage(gamemode){
     if (gamemode=="PVE"){
         if(n1PVE==0){
-            console.log("There doesn't exist a previous page")
+            ("There doesn't exist a previous page")
         } else {
             if(lastpagePVE){
                 n1PVE=n1PVE-5;
@@ -176,7 +177,7 @@ async function prevpage(gamemode){
     }
     if (gamemode=="PVP"){
         if(n1PVP==0){
-            console.log("There doesn't exist a previous page")
+            ("There doesn't exist a previous page")
         } else {
             if(lastpagePVP){
                 n1PVP=n1PVP-5;
@@ -198,7 +199,7 @@ async function prevpage(gamemode){
 async function nextpage(gamemode){
     if (gamemode=="PVE"){
         if(n2PVE==ids.length-1){
-            console.log("There doesn't exist a next page")
+            ("There doesn't exist a next page")
         } else {
             n1PVE=n1PVE+5;
             
@@ -216,7 +217,7 @@ async function nextpage(gamemode){
     }
     if (gamemode=="PVP"){
         if(n2PVP==ids.length-1){
-            console.log("There doesn't exist a next page")
+            ("There doesn't exist a next page")
         } else {
             n1PVP=n1PVP+5;
             
@@ -302,7 +303,7 @@ async function selectCard(id){
     document.getElementById("cardtitle").innerHTML = dataAsArray[23];
 }
 
-var activePVEid;
+var activePVEid = null;
 async function selectCardPVE(_id){
     var rawData = await window.contract.methods.cards(ids[_id]).call();
     var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
@@ -313,12 +314,34 @@ async function selectCardPVE(_id){
 
 }
 
+var result;
+
 async function selectpve(){
-    document.getElementById("modeselector").remove();
-    var result = await window.contract.methods.Fight(activePVEid).send({ from: account });
-    document.getElementById("loadinggame").remove();
-    console.log(result);
-    
+    if (activePVEid!=null){
+        document.getElementById("modeselector").remove();
+        var returnresult = await window.contract.methods.Fight(activePVEid).call({ from: account });
+        document.getElementById("loadinggame").remove();
+        result = returnresult;
+    }
+}
+
+async function pveattack(n){
+    var rawData = await window.contract.methods.cards(ids[activePVEid]).call();
+    var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+    var melee = dataAsArray[0];
+    var shield = dataAsArray[1];
+    var magic = dataAsArray[2];
+    var range = dataAsArray[3];
+
+    if (n==0){
+
+    } 
+    if (n==1){
+
+    }
+    if (n==2){
+
+    }
 }
 
 function selectpvp(){

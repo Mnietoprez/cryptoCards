@@ -1,5 +1,5 @@
-var tokenAddress = "0xb1A74A318a385C96b8298dF30Dbb2C4195c55b4f";
-var contractAddress = "0xeC2966Fa224343B3751FE12C358cC1FC06E697F0";
+var tokenAddress = "0x94Bb905890A4b11A53242a90DA445F91aF26629D";
+var contractAddress = "0xAdF56e8539454d5FC385f0862f045BD6b6D9Ee73";
 var activeid;
 var account;
 var ids;
@@ -484,6 +484,19 @@ async function loadContract() {
             "type": "function"
         },
         {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint16[5]",
+                    "name": "stats",
+                    "type": "uint16[5]"
+                }
+            ],
+            "name": "FightPVE",
+            "type": "event"
+        },
+        {
             "inputs": [
                 {
                     "internalType": "uint256",
@@ -801,7 +814,7 @@ async function loadContract() {
         },
         {
             "inputs": [],
-            "name": "id",
+            "name": "idLength",
             "outputs": [
                 {
                     "internalType": "uint256",

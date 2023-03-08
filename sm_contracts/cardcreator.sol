@@ -39,10 +39,14 @@ abstract contract CardNFT is ERC721 {
 
     card[] public cards;
     
-    uint internal createnonce = 0;
-    uint internal fightnonce = 0;
-    uint private id = 0;
+    uint256 internal createnonce = 0;
+    uint256 internal fightnonce = 0;
+    uint256 private id = 0;
     
+    function idLength() public view returns(uint){
+        return id;
+    }
+
     function randomnum(uint16 n, bool create) internal returns(uint16){
         uint16 val;
         if (create) {

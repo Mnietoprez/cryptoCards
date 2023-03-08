@@ -15,6 +15,8 @@ contract CardBattlePVE is CardMarket{
 
     mapping (uint => uint) public cooldowns;
 
+    event FightPVE(uint16[5] stats );
+
     function advantage(uint f, uint vsf) private pure returns(uint){
         //magma > ice
         //ice > electric
@@ -87,6 +89,7 @@ contract CardBattlePVE is CardMarket{
         } else {
             cooldowns[_id] = block.timestamp;
         }
+        emit FightPVE(vsstats);
         return vsstats;
     }
 }

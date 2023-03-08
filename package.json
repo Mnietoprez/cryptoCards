@@ -17,9 +17,6 @@
   },
   "homepage": "https://github.com/Mnietoprez/cryptoCards#readme",
   "dependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
-    "@openzeppelin/contracts": "^4.8.1",
-    "hardhat": "^2.11.2",
     "web3": "^1.8.1"
   }
 }
