@@ -1,5 +1,5 @@
-var tokenAddress = "0x94Bb905890A4b11A53242a90DA445F91aF26629D";
-var contractAddress = "0xAdF56e8539454d5FC385f0862f045BD6b6D9Ee73";
+var tokenAddress = "0x08a7c89F54E00b8bA7C839C9066b0f0220D9B1cF";
+var contractAddress = "0xee7fbeEEC2508332e817422Ed111b46da392D2B2";
 var activeid;
 var account;
 var ids;
@@ -1442,4 +1442,3 @@ async function loadToken() {
         }
     ], tokenAddress);
 }
-

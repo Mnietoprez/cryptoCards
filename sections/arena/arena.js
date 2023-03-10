@@ -1,5 +1,5 @@
-var tokenAddress = "0x94Bb905890A4b11A53242a90DA445F91aF26629D";
-var contractAddress = "0xAdF56e8539454d5FC385f0862f045BD6b6D9Ee73";
+var tokenAddress = "0x08a7c89F54E00b8bA7C839C9066b0f0220D9B1cF";
+var contractAddress = "0xee7fbeEEC2508332e817422Ed111b46da392D2B2";
 var account;
 var ids;
 var pagePVE = 1;
@@ -315,33 +315,275 @@ async function selectCardPVE(_id){
 }
 
 var result;
+var melee;
+var shield;
+var magic;
+var range;
+var cname;
+var vsmelee;
+var vsshield;
+var vsmagic;
+var vsrange;
+var extra;
+var usercounter = 0;
+var opponentcounter = 0;
+
 
 async function selectpve(){
     if (activePVEid!=null){
         document.getElementById("modeselector").remove();
-        var returnresult = await window.contract.methods.Fight(activePVEid).call({ from: account });
+        await window.contract.methods.Fight(activePVEid).send({ from: account });
+        contract.events.FightPVE({fromBlock: 0, toBlock: 'latest', filter: {from: account}, order: 'desc'}, (error, result) => {
+            if (error) {
+                console.error(error);
+            } else {
+                const ultimoEvento = result[0];
+                const valoresDeRetorno = ultimoEvento.returnValues.stats;
+                console.log(valoresDeRetorno);
+                vsmelee = valoresDeRetorno[0];
+                vsshield = valoresDeRetorno[3];
+                vsmagic = valoresDeRetorno[1];
+                vsrange = valoresDeRetorno[2];
+                extra = valoresDeRetorno[4];
+            }
+          });
+        var rawData = await window.contract.methods.cards(ids[activePVEid]).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        melee = dataAsArray[0];
+        shield = dataAsArray[1];
+        magic = dataAsArray[2];
+        range = dataAsArray[3];
+        cname = dataAsArray[11];
+        
         document.getElementById("loadinggame").remove();
-        result = returnresult;
+        
     }
 }
 
-async function pveattack(n){
-    var rawData = await window.contract.methods.cards(ids[activePVEid]).call();
-    var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
-    var melee = dataAsArray[0];
-    var shield = dataAsArray[1];
-    var magic = dataAsArray[2];
-    var range = dataAsArray[3];
+health = [100, 35, 0];
+var meleeavailable = true;
+var rangeavailable = true;
+var magicavailable = true;
 
-    if (n==0){
-
-    } 
-    if (n==1){
-
-    }
-    if (n==2){
-
-    }
+function pveattack(n){
+    if (usercounter <2 && opponentcounter <2){
+        if (n==0 && meleeavailable == true){
+            var totaluser;
+            var totaldef;
+            document.getElementById("pveminit").innerHTML = ``;
+            document.getElementById("pvem1").innerHTML = `${cname} used Melee`;
+            document.getElementById("pvem2").innerHTML = ``;
+            document.getElementById("pvem3").innerHTML = ``;
+            document.getElementById("pvem4").innerHTML = ``;
+            document.getElementById("pvem5").innerHTML = ``;
+            document.getElementById("pvem6").innerHTML = ``;
+            document.getElementById("roundresult").innerHTML = ``;
+        
+            setTimeout(function() {
+                if (extra==30){
+                    document.getElementById("pvem2").innerHTML = `[${melee} + 15] Attack vs [${vsshield}] Defense = ${melee+15-vsshield}`;
+                    document.getElementById("pvem3").innerHTML = `Critical hit!`;
+                    totaluser = melee+15-vsshield;
+                } else{
+                    document.getElementById("pvem2").innerHTML = `[${melee}] Attack vs [${vsshield}] Defense = ${melee-vsshield} `;
+                    totaluser = melee-vsshield;
+                }
+            }, 1000);
+            
+            setTimeout(function() {
+                document.getElementById("pvem4").innerHTML = `Opponent used Melee`;
+            }, 2000);
+            
+            setTimeout(function() {
+                if (extra==0){
+                    document.getElementById("pvem5").innerHTML = `[${vsmelee} + 15] Attack vs [${shield}] Defense = ${vsmelee+15-shield}`;
+                    document.getElementById("pvem6").innerHTML = `Critical hit!`;
+                    totaldef = vsmelee+15-shield;
+                } else{
+                    document.getElementById("pvem5").innerHTML = `[${vsmelee}] Attack vs [${shield}] Defense = ${vsmelee-shield} `;
+                    totaldef = vsmelee-shield;
+                }
+            }, 3000);
+            
+            setTimeout(function() {
+                if (totaluser - totaldef > 0){
+                    opponentcounter++;
+                    document.getElementById("roundresult").innerHTML = `You win`;
+                    document.getElementById("defhealth").style.transition = "0.45s";
+                    document.getElementById("defhealth").style.width = `${health[opponentcounter]}%`;
+                    document.getElementById("defhealth").style.backgroundColor = "red";
+                    document.getElementById("meleebutton").style.transition = "0.6s";
+                    document.getElementById("meleebutton").style.backgroundColor = "rgb(60,60,60)";
+                    meleeavailable = false;
+                } else {
+                    usercounter++;
+                    document.getElementById("roundresult").innerHTML = `Opponent wins`;
+                    document.getElementById("userhealth").style.transition = "0.45s";
+                    document.getElementById("userhealth").style.width = `${health[usercounter]}%`;
+                    document.getElementById("userhealth").style.backgroundColor = "red";
+                    document.getElementById("meleebutton").style.transition = "0.6s";
+                    document.getElementById("meleebutton").style.backgroundColor = "rgb(60,60,60)";
+                    meleeavailable = false;
+                }
+                if (usercounter == 2){
+                    document.getElementById("pvemresult").innerHTML = `Better luck next time!`;
+                    document.getElementById("endbutton").style.opacity = `100%`;
+                    document.getElementById("endbutton").style.cursor = `pointer`;
+                    document.getElementById("endbutton").onclick = function() {location.reload()};
+                }
+                if (opponentcounter == 2){
+                    document.getElementById("pvemresult").innerHTML = `Congratulations! +100 RST`;
+                    document.getElementById("endbutton").style.opacity = `100%`;
+                    document.getElementById("endbutton").style.cursor = `pointer`;
+                    document.getElementById("endbutton").onclick = function() {location.reload()};
+                }
+            }, 4000);
+        } 
+        if (n==1 && rangeavailable == true){
+            var totaluser;
+            var totaldef;
+            document.getElementById("pveminit").innerHTML = ``;
+            document.getElementById("pvem1").innerHTML = `${cname} used Range`;
+            document.getElementById("pvem2").innerHTML = ``;
+            document.getElementById("pvem3").innerHTML = ``;
+            document.getElementById("pvem4").innerHTML = ``;
+            document.getElementById("pvem5").innerHTML = ``;
+            document.getElementById("pvem6").innerHTML = ``;
+            document.getElementById("roundresult").innerHTML = ``;
+        
+            setTimeout(function() {
+                if (extra==30){
+                    document.getElementById("pvem2").innerHTML = `[${range} + 15] Range vs [${vsshield}] Defense = ${range+15-vsshield}`;
+                    document.getElementById("pvem3").innerHTML = `Critical hit!`;
+                    totaluser = range+15-vsshield;
+                } else{
+                    document.getElementById("pvem2").innerHTML = `[${range}] Range vs [${vsshield}] Defense = ${range-vsshield} `;
+                    totaluser = range-vsshield;
+                }
+            }, 1000);
+            
+            setTimeout(function() {
+                document.getElementById("pvem4").innerHTML = `Opponent used Range`; 
+            }, 2000);
+            
+            setTimeout(function() {
+                if (extra==0){
+                    document.getElementById("pvem5").innerHTML = `[${vsrange} + 15] Attack vs [${shield}] Defense = ${vsrange+15-shield}`;
+                    document.getElementById("pvem6").innerHTML = `Critical hit!`;
+                    totaldef = vsrange+15-shield;
+                } else{
+                    document.getElementById("pvem5").innerHTML = `[${vsrange}] Attack vs [${shield}] Defense = ${vsrange-shield} `;
+                    totaldef = vsrange-shield;
+                }
+            }, 3000);
+            
+            setTimeout(function() {
+                if (totaluser - totaldef > 0){
+                    opponentcounter++;
+                    document.getElementById("roundresult").innerHTML = `You win`;
+                    document.getElementById("defhealth").style.transition = "0.45s";
+                    document.getElementById("defhealth").style.width = `${health[opponentcounter]}%`;
+                    document.getElementById("defhealth").style.backgroundColor = "red";
+                    document.getElementById("rangebutton").style.transition = "0.6s";
+                    document.getElementById("rangebutton").style.backgroundColor = "rgb(60,60,60)";
+                    rangeavailable = false;
+                } else {
+                    usercounter++;
+                    document.getElementById("roundresult").innerHTML = `Opponent wins`;
+                    document.getElementById("userhealth").style.transition = "0.45s";
+                    document.getElementById("userhealth").style.width = `${health[usercounter]}%`;
+                    document.getElementById("userhealth").style.backgroundColor = "red";
+                    document.getElementById("rangebutton").style.transition = "0.6s";
+                    document.getElementById("rangebutton").style.backgroundColor = "rgb(60,60,60)";
+                    rangeavailable = false;
+                }
+                if (usercounter == 2){
+                    document.getElementById("pvemresult").innerHTML = `Better luck next time!`;
+                    document.getElementById("endbutton").style.opacity = `100%`;
+                    document.getElementById("endbutton").style.cursor = `pointer`;
+                    document.getElementById("endbutton").onclick = function() {location.reload()};
+                }
+                if (opponentcounter == 2){
+                    document.getElementById("pvemresult").innerHTML = `Congratulations! +100 RST`;
+                    document.getElementById("endbutton").style.opacity = `100%`;
+                    document.getElementById("endbutton").style.cursor = `pointer`;
+                    document.getElementById("endbutton").onclick = function() {location.reload()};
+                }
+            }, 4000);
+        }
+        if (n==2 && magicavailable == true){
+            var totaluser;
+            var totaldef;
+            document.getElementById("pveminit").innerHTML = ``;
+            document.getElementById("pvem1").innerHTML = `${cname} used Magic`;
+            document.getElementById("pvem2").innerHTML = ``;
+            document.getElementById("pvem3").innerHTML = ``;
+            document.getElementById("pvem4").innerHTML = ``;
+            document.getElementById("pvem5").innerHTML = ``;
+            document.getElementById("pvem6").innerHTML = ``;
+            document.getElementById("roundresult").innerHTML = ``;
+        
+            setTimeout(function() {
+                if (extra==30){
+                    document.getElementById("pvem2").innerHTML = `[${magic} + 15] Attack vs [${vsshield}] Defense = ${magic+15-vsshield}`;
+                    document.getElementById("pvem3").innerHTML = `Critical hit!`;
+                    totaluser = magic+15-vsshield;
+                } else{
+                    document.getElementById("pvem2").innerHTML = `[${magic}] Attack vs [${vsshield}] Defense = ${magic-vsshield} `;
+                    totaluser = magic-vsshield;
+                }
+            }, 1000);
+            
+            setTimeout(function() {
+                document.getElementById("pvem4").innerHTML = `Opponent used Melee`;
+            }, 2000);
+            
+            setTimeout(function() {
+                if (extra==0){
+                    document.getElementById("pvem5").innerHTML = `[${vsmagic} + 15] Attack vs [${shield}] Defense = ${vsmagic+15-shield}`;
+                    document.getElementById("pvem6").innerHTML = `Critical hit!`;
+                    totaldef = vsmagic+15-shield;
+                } else{
+                    document.getElementById("pvem5").innerHTML = `[${vsmagic}] Attack vs [${shield}] Defense = ${vsmagic-shield} `;
+                    totaldef = vsmagic-shield;
+                }
+            }, 3000);
+            
+            setTimeout(function() {
+                if (totaluser - totaldef > 0){
+                    opponentcounter++;
+                    document.getElementById("roundresult").innerHTML = `You win`;
+                    document.getElementById("defhealth").style.transition = "0.45s";
+                    document.getElementById("defhealth").style.width = `${health[opponentcounter]}%`;
+                    document.getElementById("defhealth").style.backgroundColor = "red";
+                    document.getElementById("magicbutton").style.transition = "0.6s";
+                    document.getElementById("magicbutton").style.backgroundColor = "rgb(60,60,60)";
+                    magicavailable = false;
+                } else {
+                    usercounter++;
+                    document.getElementById("roundresult").innerHTML = `Opponent wins`;
+                    document.getElementById("userhealth").style.transition = "0.45s";
+                    document.getElementById("userhealth").style.width = `${health[usercounter]}%`;
+                    document.getElementById("userhealth").style.backgroundColor = "red";
+                    document.getElementById("magicbutton").style.transition = "0.6s";
+                    document.getElementById("magicbutton").style.backgroundColor = "rgb(60,60,60)";
+                    magicavailable = false;
+                }
+                if (usercounter == 2){
+                    document.getElementById("pvemresult").innerHTML = `Better luck next time!`;
+                    document.getElementById("endbutton").style.opacity = `100%`;
+                    document.getElementById("endbutton").style.cursor = `pointer`;
+                    document.getElementById("endbutton").onclick = function() {location.reload()};
+                }
+                if (opponentcounter == 2){
+                    document.getElementById("pvemresult").innerHTML = `Congratulations! +100 RST`;
+                    document.getElementById("endbutton").style.opacity = `100%`;
+                    document.getElementById("endbutton").style.cursor = `pointer`;
+                    document.getElementById("endbutton").onclick = function() {location.reload()};
+                }
+            }, 4000);
+        }
+    }      
 }
 
 function selectpvp(){
@@ -495,6 +737,19 @@ async function loadContract() {
             ],
             "stateMutability": "nonpayable",
             "type": "function"
+        },
+        {
+            "anonymous": false,
+            "inputs": [
+                {
+                    "indexed": false,
+                    "internalType": "uint16[5]",
+                    "name": "stats",
+                    "type": "uint16[5]"
+                }
+            ],
+            "name": "FightPVE",
+            "type": "event"
         },
         {
             "inputs": [
@@ -814,7 +1069,7 @@ async function loadContract() {
         },
         {
             "inputs": [],
-            "name": "id",
+            "name": "idLength",
             "outputs": [
                 {
                     "internalType": "uint256",
