@@ -337,8 +337,7 @@ async function selectpve(){
             if (error) {
                 console.error(error);
             } else {
-                const ultimoEvento = result[0];
-                const valoresDeRetorno = ultimoEvento.returnValues.stats;
+                const valoresDeRetorno = result.returnValues.stats;
                 console.log(valoresDeRetorno);
                 vsmelee = valoresDeRetorno[0];
                 vsshield = valoresDeRetorno[3];
@@ -381,7 +380,7 @@ function pveattack(n){
         
             setTimeout(function() {
                 if (extra==30){
-                    document.getElementById("pvem2").innerHTML = `[${melee} + 15] Attack vs [${vsshield}] Defense = ${melee+15-vsshield}`;
+                    document.getElementById("pvem2").innerHTML = `[${melee} + 15] Attack vs [${vsshield}] Defense = ${parseInt(vsmelee-shield)+15}`;
                     document.getElementById("pvem3").innerHTML = `Critical hit!`;
                     totaluser = melee+15-vsshield;
                 } else{
@@ -396,7 +395,7 @@ function pveattack(n){
             
             setTimeout(function() {
                 if (extra==0){
-                    document.getElementById("pvem5").innerHTML = `[${vsmelee} + 15] Attack vs [${shield}] Defense = ${vsmelee+15-shield}`;
+                    document.getElementById("pvem5").innerHTML = `[${vsmelee} + 15] Attack vs [${shield}] Defense = ${parseInt(vsmelee-shield)+15}`;
                     document.getElementById("pvem6").innerHTML = `Critical hit!`;
                     totaldef = vsmelee+15-shield;
                 } else{
@@ -453,7 +452,7 @@ function pveattack(n){
         
             setTimeout(function() {
                 if (extra==30){
-                    document.getElementById("pvem2").innerHTML = `[${range} + 15] Range vs [${vsshield}] Defense = ${range+15-vsshield}`;
+                    document.getElementById("pvem2").innerHTML = `[${range} + 15] Range vs [${vsshield}] Defense = ${parseInt(range-vsshield)+15}`;
                     document.getElementById("pvem3").innerHTML = `Critical hit!`;
                     totaluser = range+15-vsshield;
                 } else{
@@ -468,7 +467,7 @@ function pveattack(n){
             
             setTimeout(function() {
                 if (extra==0){
-                    document.getElementById("pvem5").innerHTML = `[${vsrange} + 15] Attack vs [${shield}] Defense = ${vsrange+15-shield}`;
+                    document.getElementById("pvem5").innerHTML = `[${vsrange} + 15] Attack vs [${shield}] Defense = ${parseInt(range-vsshield)+15}`;
                     document.getElementById("pvem6").innerHTML = `Critical hit!`;
                     totaldef = vsrange+15-shield;
                 } else{
@@ -525,7 +524,7 @@ function pveattack(n){
         
             setTimeout(function() {
                 if (extra==30){
-                    document.getElementById("pvem2").innerHTML = `[${magic} + 15] Attack vs [${vsshield}] Defense = ${magic+15-vsshield}`;
+                    document.getElementById("pvem2").innerHTML = `[${magic} + 15] Attack vs [${vsshield}] Defense = ${parseInt(magic-vsshield)+15}`;
                     document.getElementById("pvem3").innerHTML = `Critical hit!`;
                     totaluser = magic+15-vsshield;
                 } else{
@@ -540,7 +539,7 @@ function pveattack(n){
             
             setTimeout(function() {
                 if (extra==0){
-                    document.getElementById("pvem5").innerHTML = `[${vsmagic} + 15] Attack vs [${shield}] Defense = ${vsmagic+15-shield}`;
+                    document.getElementById("pvem5").innerHTML = `[${vsmagic} + 15] Attack vs [${shield}] Defense = ${parseInt(magic-vsshield)+15}`;
                     document.getElementById("pvem6").innerHTML = `Critical hit!`;
                     totaldef = vsmagic+15-shield;
                 } else{

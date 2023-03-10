@@ -31,6 +31,12 @@ contract CardBattlePVE is CardMarket{
             if (vsf == 2){
                 val = 0;
             } 
+            if (vsf == 0){
+                val = 15;
+            } 
+            if (vsf == 3){
+                val = 15;
+            } 
         }
         if (f == 1){
             if (vsf == 3){
@@ -38,6 +44,12 @@ contract CardBattlePVE is CardMarket{
             }
             if (vsf == 0){
                 val = 0;
+            } 
+            if (vsf == 2){
+                val = 15;
+            } 
+            if (vsf == 1){
+                val = 15;
             } 
         }
         if (f == 2){
@@ -47,6 +59,12 @@ contract CardBattlePVE is CardMarket{
             if (vsf ==3){
                 val = 0;
             }
+            if (vsf == 1){
+                val = 15;
+            } 
+            if (vsf == 2){
+                val = 15;
+            } 
         }
         if (f == 3){
             if (vsf ==2){
@@ -55,6 +73,12 @@ contract CardBattlePVE is CardMarket{
             if (vsf ==1){
                 val = 0;
             }
+            if (vsf == 0){
+                val = 15;
+            } 
+            if (vsf == 3){
+                val = 15;
+            } 
         }
         return val;
     }
