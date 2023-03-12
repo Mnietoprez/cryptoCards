@@ -89,7 +89,7 @@ abstract contract CardNFT is ERC721 {
             token.approve(msg.sender, tokenAddress , 10e18);
             token.transferFrom(msg.sender, tokenAddress, owner, 10e18);  
 
-            uint8 quality = determineQuality(67, 20, 12);
+            uint8 quality = determineQuality(63, 24, 12);
 
             for (uint i=0; i<4; i++){
                 rands[i] = randomnum(2501, true)+quality*2500;
@@ -111,7 +111,7 @@ abstract contract CardNFT is ERC721 {
             token.approve(msg.sender, tokenAddress , 10e19);
             token.transferFrom(msg.sender, tokenAddress, owner, 10e19);
 
-            uint8 quality = determineQuality(0, 30, 50);
+            uint8 quality = determineQuality(3, 30, 50);
         
             for (uint i=0; i<4; i++){
                 rands[i] = randomnum(2501, true)+quality*2500;

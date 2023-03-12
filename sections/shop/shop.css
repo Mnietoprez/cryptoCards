@@ -92,14 +92,15 @@ body{
 
 .imagecontainer{
     width:100%;
-    height: 250px;
+    height: 45%;
     display: flex;
     border-radius: 10px;
 }
 
 .imagecontainer img{
     padding-top: 20px;
-    width:65%;
+    padding-left:50px;
+    width:50%;
     height: 90%;
 
 }
@@ -223,16 +224,12 @@ body{
 
 .butanddesc {
     width:100%;
-    height:35%;
+    height:45%;
     text-align: center;
     display: block;
     border-radius: 10px;
 }
 
-.butanddesc p {
-    color:rgb(207, 194, 186);
-    font-size: 30;
-}
 
 .innercontent button{
     background-color: rgb(195, 168, 152);

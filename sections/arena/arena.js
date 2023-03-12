@@ -332,6 +332,9 @@ var opponentcounter = 0;
 async function selectpve(){
     if (activePVEid!=null){
         document.getElementById("modeselector").remove();
+        var rawData = await window.contract.methods.cards(activePVEid).call();
+        var dataAsArray = Object.values(JSON.parse(JSON.stringify(rawData)));
+        document.getElementById("name").innerHTML = dataAsArray[23];
         await window.contract.methods.Fight(activePVEid).send({ from: account });
         contract.events.FightPVE({fromBlock: 0, toBlock: 'latest', filter: {from: account}, order: 'desc'}, (error, result) => {
             if (error) {
