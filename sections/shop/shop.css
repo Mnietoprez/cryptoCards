@@ -246,3 +246,21 @@ body{
     transform:scale(1.1, 1.2);
     background-color:rgb(122, 107, 98);
 }
+
+
+.probcontainer{
+    width:90%;
+    height:7%;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.probbar{
+    width:0%;
+    height:100%;
+    display: flex;
+    border-radius: 10px;
+    transition: 0.5s;
+}

@@ -2,6 +2,23 @@ var tokenAddress = "0x08a7c89F54E00b8bA7C839C9066b0f0220D9B1cF";
 var contractAddress = "0xee7fbeEEC2508332e817422Ed111b46da392D2B2";
 var activeid;
 var account;
+
+var probs ={
+    11: "63%",
+    12: "24%",
+    13: "12%",
+    14: "1%",
+    21: "10%",
+    22: "61%",
+    23: "23%",
+    24: "6%",
+    31: "3%",
+    32: "30%",
+    33: "50%",
+    34: "17",
+}
+
+
 window.onload = async function(){
     await loadWeb3();
     window.contract = await loadContract();
@@ -10,6 +27,13 @@ window.onload = async function(){
 
     document.getElementById("cardToken").innerHTML=digitFormatter(await window.token.methods.balanceOf(account).call());
     document.getElementById("rust").innerHTML=await window.contract.methods.rustBalanceOf(account).call();
+
+    for (i=1;i<5;i++){
+        for (j=1;j<5;j++){
+            document.getElementById(`p${i}${j}`).style.width=probs[`${i}${j}`];
+        }
+    }
+
 }
 
 function digitFormatter(n){
@@ -39,6 +63,8 @@ async function getCurrentAccount() {
     const accounts = await window.web3.eth.getAccounts();
     return accounts[0];
 }
+
+
 
 var stopFlag = false;
 
