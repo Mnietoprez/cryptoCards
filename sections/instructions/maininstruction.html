@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Amazing CryptoCards</title>
+        <link rel="stylesheet" type="text/css" href="maininstruction.css">
+        <script src='node_modules/web3/dist/web3.min.js'></script>
+    </head>
+    <body>
+        <script src = maininstruction.js></script>
+        <div class="maincontainer">
+            <div class="hspace" style="width:5%"></div>
+            <div class="titlecontainer">
+                <div class="vspace" style="height:50px"></div>
+                <h1 style="font-size: 40px;">What is CryptoCards?</h1>
+                <div class="vspace" style="height:60px"></div>
+                <div class="textcontainer" style="height:100px">
+                    <div class="vspace" style="height:3%"></div>
+                    <div style="height:94%; width:100%; display:flex">
+                        <div class="hspace" style="width:0.3%"></div>
+                        <div class="intextcontainer">
+                            <h1>CryptoCards is a collectible card game powered with blockchain technology and fully working through a web browser.
+                                It features full compatibility with its own ERC-20 token, CCT, wich can be used to purchase the cards or place bets on pvp games.
+                                All collectible cards are not fungible tokens (NFTS), which the user can sell or send to other players as desired, as well as 
+                                upgrade its stats.
+                            </h1>
+                            <h1>
+                                The game is created and mantained only by <a href="https://mnietoprez.github.io/" style="color:rgb(208, 199, 194)">Marco Nieto</a>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="vspace" style="height:20px"></div>
+                <h1 style="font-size: 25px;">Game roadmap</h1>
+                <div class="vspace" style="height:20px"></div>
+                <div class="textcontainer" style="height:300px">
+                    <div class="vspace" style="height:1%"></div>
+                    <div style="height:98%; width:100%; display:flex">
+                        <div class="hspace" style="width:0.3%"></div>
+                        <div class="intextcontainer">
+                            <div class="vspace" style="height:15%"></div>
+                            <div style="width: 100%; height:2.5%; display:flex">
+                                <div class="hspace" style="width:10%"></div>
+                                <div  class="lowbar"></div>
+                            </div>
+                            <div class="vspace" style="height:2.5%"></div>
+                            <div style="width: 100%; height:20%; display:flex">
+                                <div class="hspace" style="width:10%"></div>
+                                <div  class="roadmapbar">
+                                    <div class="hspace" style="width:13.75%; font-size: 40px; color: white;">⮞</div>
+                                    <button onclick=version(0)>Alpha 1.0 🏆</button>
+                                    <div class="hspace" style="width:13.75%; font-size: 40px; color: white;">⮞</div>
+                                    <button onclick=version(1)>Beta 1.0 🏆</button>
+                                    <div class="hspace" style="width:13.75%; font-size: 40px; color: white;">⮞</div>
+                                    <button onclick=version(2)>Version 1.0 🛠️</button>
+                                    <div class="hspace" style="width:13.75%; font-size: 40px; color: white;">⮞</div>
+                                </div>
+                            </div>
+                            <div class="vspace" style="height:2.5%"></div>
+                            <div style="width: 100%; height:2.5%; display:flex">
+                                <div class="hspace" style="width:10%"></div>
+                                <div  class="lowbar"></div>
+                            </div>
+                            <div class="vspace" style="height:5%"></div>
+                            <div style="width: 100%; height:45%; display:flex">
+                                <div class="hspace" style="width:10%"></div>
+                                <div class="textcontainer" style="height:100%; width:80%">
+                                    <div class="vspace" style="height:3%"></div>
+                                    <div style="height:94%; width:100%; display:flex">
+                                        <div class="hspace" style="width:0.3%"></div>
+                                        <div class="intextcontainer">
+                                            <h1 id="versiontitle">Alpha 1.0</h1>
+                                            <h1 id="versiondate">Test</h1>
+                                            <p id="versiontext">Test</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vspace" style="height:20px"></div>
+                <h1 style="font-size: 25px;">How to play</h1>
+                <div class="vspace" style="height:20px"></div>
+                <div class="textcontainer" style="height:630px">
+                    <div class="vspace" style="height:1%"></div>
+                    <div style="height:98%; width:100%; display:flex">
+                        <div class="hspace" style="width:0.3%"></div>
+                        <div class="intextcontainer">
+                            <h1 style="font-size: 20px;">Requisites:</h1>
+                            <br>
+                            <h1>The user must have a <a href="https://metamask.io/" style="color:rgb(208, 199, 194)">Metamask account</a>, aswell as the metamask extension installed in the browser. </h1>
+                            <img src="../../images/mmask.png" style="width:20%">
+                            <h1>
+                                Each wallet can hold one or more Blockchain addresses. One CryptoCards account is linked to each blockchain address, and you can switch between
+                                them in one single computer. Be careful! All the accounts are under your absolute control, however, you cannot share your cards between your accounts.
+                                The cryptoCards are NFTS, which mean that they belong to only one account at a time. You can send your cards between your accounts, however, you will need 
+                                to pay the net fees and wait until a block is mined (~15sec).
+
+                            </h1>
+                            <br>
+                            <h1 style="font-size: 20px;">Net configuration:</h1>
+                            <br>
+                            <h1>
+                                You must switch your metamask net to 'Sepolia Testnet' or 'Polygon Mainnet' to make the app work.
+                            </h1>
+                            <h1 style="text-decoration: underline;">If you use Sepolia Testnet</h1>
+                            <h1>
+                                This is a testnet, which means that you won't pay real money for the transactions. Here, you can access the CCT Sepolia faucet to
+                                refill for free your CCT balance anytime (this CCT token is different as the one in the mainnet, so balances won't be the same). Fees to the net have to be payed anyways, but you can get free SepoliaETH on multiple faucets
+                                online.
+                                The app works the same as the mainnet one, however, data will be deleted periodically as its the net used by the developer to test 
+                                functionalities inside the game. If you want to ensure yourself that your data and cards won't be deleted, then switch to polygon mainnet.
+                            </h1>
+                            <h1 style="text-decoration: underline;">If you use Polygon Mainnet</h1>
+                            <h1>
+                                This is the real blockchain where the game is allocated. Your data is transferred to a safe storage, which won't be deleted through the updates
+                                and fixes that the game might get. Fees have to be payed using Matic, a real cryptocurrency which can vary in price and cost real money. Here, CCT is not renewable for free and has real value.
+                            </h1>
+                            <br>
+                            <br>
+                            <h1>
+                                If you are enjoying the game, please leave a star on <a href="https://github.com/Mnietoprez/cryptoCards" style="color:rgb(208, 199, 194)">Github</a>!
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hspace" style="width:5%"></div>
+        </div>
+        <div class="endcontainer" style="height:50px;width:100%; display: flex;">
+            <div class="hspace" style="width: 45%"></div>
+            <button onclick=menu()>Back to menu</button>
+        </div>
+        
+
+
+        
+
+    </body>
+</html>
