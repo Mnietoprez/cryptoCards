@@ -9,11 +9,12 @@ body{
     border-radius: 10px; 
     display: flex;
     position: fixed;
+    border:2px solid rgb(0, 0, 0);
 }
 
 .section {
     background-color: rgb(45, 24, 0) ;
-    width:14%;
+    width:13.5%;
     height:100%;
     border-radius: 10px; 
     text-align: center;
@@ -55,6 +56,7 @@ body{
     height: 100%;
     border-radius: 10px;
     display:flex;
+    border:2px solid rgb(0, 0, 0);
 }
 
 .innercontent{
@@ -77,6 +79,7 @@ body{
     height: 45px;
     border-radius: 10px;
     text-align: center;
+    border:2px solid rgb(16, 8, 0);
 }
 
 .title h1{
@@ -106,6 +109,7 @@ body{
     height: 100%;
     border-radius: 10px;
     display:flex;
+    border:2px solid rgba(0, 0, 0,0.4);
 }
 
 .mylist{
@@ -115,6 +119,7 @@ body{
     border-radius: 10px;
     display:block;
     text-align: center;
+    border:2px solid rgba(0, 0, 0,0.4);
 }
 
 .thecardcontainer{
@@ -134,6 +139,7 @@ body{
     border-radius: 10px;
     display:block;
     text-align: center;
+    border:2px solid rgb(0, 0, 0);
 }
 
 .insidethecardtitle h1{
@@ -153,6 +159,7 @@ body{
     height: 100%;
     text-align:center;
     border-radius: 5px;
+    border:2px solid rgb(0, 0, 0);
 }
 
 .thecardimage{
@@ -167,6 +174,7 @@ body{
     height: 100%;
     border-radius: 5px;
     overflow: hidden;
+    border:2px solid rgb(0, 0, 0);
 }
 
 .insidethecardimage img {
@@ -241,6 +249,7 @@ body{
     border-radius: 10px;
     width: 47%;
     height: 100%;
+    border:2px solid rgba(0, 0, 0,0.4);
 }
 
 .thecardcontainer button{
@@ -274,6 +283,7 @@ body{
     background-color: rgba(0,0,0,0.2);
     border-radius: 10px;
     display: flex;
+    border:2px solid rgba(0, 0, 0,0.4);
 }
 
 .marketsettings button{
@@ -306,7 +316,7 @@ body{
     background-color: rgba(0, 0, 0, 0.1); 
     border-radius: 10px; 
     text-align: center; 
-    border:2px solid black;
+    border:2px solid rgba(0, 0, 0,0.4);
     overflow: hidden;
 }
 

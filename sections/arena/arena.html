@@ -44,7 +44,11 @@
             <div class="section" style="width:3%; background-color: rgba(0,0,0,0);">
                 <h1>RST</h1>
             </div>
-            <div class="hspace" style="width:3%;"></div>
+            <div class="hspace" style="width:1%;"></div>
+            <div class="section" style="width:3%;">
+                <a href="../../index.html" style="font-size: 25px;">🚪</a>
+            </div>
+            <div class="hspace" style="width:1%;"></div>
         </div>
         <div class="vspace" style="height:60px"></div>
         <div class="maincontainer">
@@ -106,15 +110,16 @@
                         
                         <div class="settings" style="height:25%; display:flex">
                             <div style="height:100%; width:60%; display: block; border-radius: 10px;">
-                                <div class="vspace" style="height: 10%;"></div>
-                                <div style="height:60%; width:100%; text-align: left; display: block; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
-                                    <p style="padding-left: 20px; padding-top: 15px" id="namePVEselected">Card selected: </p>
+                                <div class="vspace" style="height: 20%;"></div>
+                                <div style="height:60%; width:100%; text-align: left; display: block; background-color: rgba(0,0,0,0.2); border-radius: 10px;  border:2px solid rgba(0, 0, 0, 0.4);">
+                                    <p style="padding-left: 20px" id="namePVEselected">Card selected: </p>
                                     <p style="padding-left: 20px" id="idPVEselected">Id: </p>
                                 </div>
                             </div>
                             <div class="hspace" style="width: 8.5%;"></div>
-                            <div style="height:100%; width:25%; display: block;">
-                                <p id="pagecounterPVE">Page 1 of 1</p>
+                            <div style="height:100%; width:25%; display: block; ">
+                                <div class="vspace" style="height: 10%;"></div>
+                                <p id="pagecounterPVE" style="background-color: rgba(0,0,0,0.2)">Page 1 of 1</p>
                                 <button onclick=selectpve() id="pvebutton">no card selected</button>
                             </div>
                         </div>
@@ -175,17 +180,18 @@
                             </div>
                             <button onclick=nextpage("PVP")>></button>
                         </div>
-                        <div class="settings" style="height:25%; display:flex">
+                        <div class="settings" style="height:25%; display:flex;" >
                             <div style="height:100%; width:60%; display: block; border-radius: 10px;">
-                                <div class="vspace" style="height: 10%;"></div>
-                                <div style="height:60%; width:100%; text-align: left; display: block; background-color: rgba(0,0,0,0.2); border-radius: 10px;">
-                                    <p style="padding-left: 20px; padding-top: 15px">Card(s) selected: </p>
+                                <div class="vspace" style="height: 20%;"></div>
+                                <div style="height:60%; width:100%; text-align: left; display: block; background-color: rgba(0,0,0,0.2); border-radius: 10px;  border:2px solid rgba(0, 0, 0, 0.4);">
+                                    <p style="padding-left: 20px;">Card(s) selected: </p>
                                     <p style="padding-left: 20px">Id(s): </p>
                                 </div>
                             </div>
                             <div class="hspace" style="width: 8.5%;"></div>
                             <div style="height:100%; width:25%; display: block;">
-                                <p id="pagecounterPVP">Page 1 of 1</p>
+                                <div class="vspace" style="height: 10%;"></div>
+                                <p id="pagecounterPVP" style="background-color: rgba(0,0,0,0.2)">Page 1 of 1</p>
                                 <button onclick=selectpvp() id="pvpbutton">no cards selected (max 2)</button>
                             </div>
                         </div>
