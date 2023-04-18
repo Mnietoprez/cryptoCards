@@ -594,6 +594,16 @@ function selectpvp(){
     //document.getElementById("loadinggame").remove();
 }
 
+function changetoPVE(){
+    location.reload();
+}
+
+function changetoPVP(){
+    document.getElementById("pveselector").remove();
+    document.getElementById("pvptitle").style.backgroundColor="rgb(98, 82, 67)";
+    document.getElementById("pvetitle").style.backgroundColor="rgb(43, 36, 29)";
+}
+
 
 
 async function loadContract() {
